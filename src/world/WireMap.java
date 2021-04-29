@@ -17,17 +17,10 @@ public class WireMap {
         this.wireMap = new HashMap<>();
         this.neighbourhood = neighbourhood;
         this.rules = rules;
-        createWireMap();
     }
 
-    private void createWireMap() {
-        for (int x = 0; x < cellMat.getWidth(); x++)
-            for (int y = 0; y < cellMat.getHeight(); y++) {
-                Cell cell = cellMat.getEntry(x, y);
-                if (cell instanceof Wire || cell instanceof Head || cell instanceof Tail) {
-                    wireMap.put(new Pos(x, y), cell);
-                }
-            }
+    public void putEntry(int x, int y, Cell cell) {
+        wireMap.put(new Pos(x, y), cell);
     }
 
     public void iterate() {
