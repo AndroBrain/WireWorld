@@ -54,4 +54,22 @@ public class Matrix {
     public int getWidth() {
         return width;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null)
+            return false;
+        if (!(obj instanceof Matrix))
+            return false;
+        Matrix differentMatrix = (Matrix) obj;
+        if (getHeight() != differentMatrix.getHeight() || getWidth() != differentMatrix.getWidth())
+            return false;
+
+        for (int i = 0; i < width; i++)
+            for (int j = 0; j < height; j++) {
+                if (getEntry(i, j) != differentMatrix.getEntry(i, j))
+                    return false;
+            }
+        return true;
+    }
 }

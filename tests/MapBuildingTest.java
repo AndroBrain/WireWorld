@@ -1,13 +1,13 @@
 import org.junit.Before;
 import org.junit.Test;
 import world.Matrix;
+import world.Pos;
 import world.WireBuilder;
+import world.WireMap;
 import world.cells.Cell;
 import world.cells.Head;
 import world.cells.Tail;
 import world.cells.Wire;
-import world.Pos;
-import world.WireMap;
 import world.neighbourhood.Moor;
 import world.rules.WireRules;
 
@@ -17,11 +17,14 @@ import static org.junit.Assert.assertTrue;
 
 public class MapBuildingTest {
     Matrix cellMat;
+    WireMap wireMap;
 
     @Before
     public void createWire() {
         cellMat = new Matrix(2, 2);
-        WireBuilder wireBuilder = new WireBuilder(cellMat);
+
+        wireMap = new WireMap(cellMat, new Moor(), new WireRules());
+        WireBuilder wireBuilder = new WireBuilder(cellMat, wireMap);
         wireBuilder.putWire(0, 0);
         wireBuilder.putEmpty(0, 1);
         wireBuilder.putHead(1, 0);
@@ -30,8 +33,6 @@ public class MapBuildingTest {
 
     @Test
     public void createMap() {
-        WireMap wireMap = new WireMap(cellMat, new Moor(), new WireRules());
-
         HashMap<Pos, Cell> actualMap = wireMap.getWireMap();
 
         assertTrue(actualMap.get(new Pos(0, 0)) instanceof Wire);
