@@ -1,4 +1,4 @@
-package world.rules;
+package world;
 
 import java.util.Objects;
 

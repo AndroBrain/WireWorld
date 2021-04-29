@@ -1,6 +1,6 @@
 package world;
 
-import world.cell.Cell;
+import world.cells.*;
 
 public class Matrix {
     private final Cell[][] cellMat;
@@ -19,6 +19,32 @@ public class Matrix {
 
     public Cell getEntry(int x, int y) {
         return cellMat[x][y];
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Matrix{\n");
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                Cell cell = cellMat[i][j];
+                if (cell instanceof Empty) {
+                    sb.append("Empty ");
+                } else if (cell instanceof Wire) {
+                    sb.append("Wire  ");
+                } else if (cell instanceof Head) {
+                    sb.append("Head  ");
+                } else if (cell instanceof Tail) {
+                    sb.append("Tail  ");
+                } else {
+                    sb.append("ERROR ");
+                }
+            }
+            sb.append('\n');
+        }
+        sb.append('}');
+
+        return sb.toString();
     }
 
     public int getHeight() {

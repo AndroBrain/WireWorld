@@ -1,9 +1,6 @@
 package world;
 
-import world.cell.Empty;
-import world.cell.Head;
-import world.cell.Tail;
-import world.cell.Wire;
+import world.cells.CellContainer;
 
 public class WireBuilder {
     private final Matrix cellMat;
@@ -13,19 +10,19 @@ public class WireBuilder {
     }
 
     public void putWire(int x, int y) {
-        cellMat.setEntry(x, y, new Wire());
+        cellMat.setEntry(x, y, CellContainer.wire);
     }
 
     public void putHead(int x, int y) {
-        cellMat.setEntry(x, y, new Head());
+        cellMat.setEntry(x, y, CellContainer.head);
     }
 
     public void putTail(int x, int y) {
-        cellMat.setEntry(x, y, new Tail());
+        cellMat.setEntry(x, y, CellContainer.tail);
     }
 
     public void putEmpty(int x, int y) {
-        cellMat.setEntry(x, y, new Empty());
+        cellMat.setEntry(x, y, CellContainer.empty);
     }
 
 }
