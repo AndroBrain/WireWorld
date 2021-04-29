@@ -2,12 +2,14 @@ import org.junit.Before;
 import org.junit.Test;
 import world.Matrix;
 import world.WireBuilder;
-import world.cell.Cell;
-import world.cell.Head;
-import world.cell.Tail;
-import world.cell.Wire;
-import world.rules.Pos;
+import world.cells.Cell;
+import world.cells.Head;
+import world.cells.Tail;
+import world.cells.Wire;
+import world.Pos;
 import world.WireMap;
+import world.neighbourhood.Moor;
+import world.rules.WireRules;
 
 import java.util.HashMap;
 
@@ -28,7 +30,7 @@ public class MapBuildingTest {
 
     @Test
     public void createMap() {
-        WireMap wireMap = new WireMap(cellMat);
+        WireMap wireMap = new WireMap(cellMat, new Moor(), new WireRules());
 
         HashMap<Pos, Cell> actualMap = wireMap.getWireMap();
 
