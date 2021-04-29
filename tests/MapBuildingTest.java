@@ -1,7 +1,3 @@
-package tests;
-
-import static org.junit.Assert.*;
-
 import org.junit.Before;
 import org.junit.Test;
 import world.Matrix;
@@ -11,11 +7,11 @@ import world.cell.Head;
 import world.cell.Tail;
 import world.cell.Wire;
 import world.rules.Pos;
-import world.rules.Rules;
+import world.WireMap;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+
+import static org.junit.Assert.assertTrue;
 
 public class MapBuildingTest {
     Matrix cellMat;
@@ -32,9 +28,9 @@ public class MapBuildingTest {
 
     @Test
     public void createMap() {
-        Rules rules = new Rules(cellMat);
+        WireMap wireMap = new WireMap(cellMat);
 
-        HashMap<Pos, Cell> actualMap = rules.getWireMap();
+        HashMap<Pos, Cell> actualMap = wireMap.getWireMap();
 
         assertTrue(actualMap.get(new Pos(0, 0)) instanceof Wire);
         assertTrue(actualMap.get(new Pos(1, 0)) instanceof Head);

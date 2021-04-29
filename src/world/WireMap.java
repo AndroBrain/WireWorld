@@ -1,18 +1,18 @@
-package world.rules;
+package world;
 
-import world.Matrix;
 import world.cell.Cell;
 import world.cell.Head;
 import world.cell.Tail;
 import world.cell.Wire;
+import world.rules.Pos;
 
 import java.util.HashMap;
 
-public class Rules {
+public class WireMap {
     private final HashMap<Pos, Cell> wireMap;
     private final Matrix cellMat;
 
-    public Rules(Matrix cellMat) {
+    public WireMap(Matrix cellMat) {
         this.cellMat = cellMat;
         this.wireMap = new HashMap<>();
         createWireMap();
