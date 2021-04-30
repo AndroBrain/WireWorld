@@ -2,11 +2,11 @@ package world;
 
 import java.util.Objects;
 
-public class Pos {
+public class Position {
     private int x;
     private int y;
 
-    public Pos(int x, int y) {
+    public Position(int x, int y) {
         this.x = x;
         this.y = y;
     }
@@ -33,8 +33,8 @@ public class Pos {
             return true;
         if ((obj == null) || (obj.getClass() != this.getClass()))
             return false;
-        int x = ((Pos) obj).getX();
-        int y = ((Pos) obj).getY();
+        int x = ((Position) obj).getX();
+        int y = ((Position) obj).getY();
 
         return this.x == x && this.y == y;
     }

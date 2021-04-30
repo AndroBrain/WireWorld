@@ -7,7 +7,7 @@ import world.rules.Rules;
 import java.util.HashMap;
 
 public class WireMap {
-    private HashMap<Pos, Cell> wireMap;
+    private HashMap<Position, Cell> wireMap;
     private final Matrix cellMat;
     private final Neighbourhood neighbourhood;
     private final Rules rules;
@@ -20,11 +20,11 @@ public class WireMap {
     }
 
     public void putEntry(int x, int y, Cell cell) {
-        wireMap.put(new Pos(x, y), cell);
+        wireMap.put(new Position(x, y), cell);
     }
 
     public void iterate() {
-        HashMap<Pos, Cell> map = new HashMap<>();
+        HashMap<Position, Cell> map = new HashMap<>();
         wireMap.forEach((k, v) -> {
             if (v instanceof Head) {
                 map.put(k, CellContainer.tail);
@@ -42,7 +42,7 @@ public class WireMap {
         wireMap = map;
     }
 
-    public HashMap<Pos, Cell> getWireMap() {
+    public HashMap<Position, Cell> getWireMap() {
         return wireMap;
     }
 }

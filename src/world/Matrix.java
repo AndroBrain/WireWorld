@@ -2,31 +2,39 @@ package world;
 
 import world.cells.*;
 
+import java.util.Arrays;
+
 public class Matrix {
     private final Cell[][] cellMat;
-    private final int width;
-    private final int height;
+    private final int rows;
+    private final int columns;
 
-    public Matrix(int width, int height) {
-        this.width = width;
-        this.height = height;
-        this.cellMat = new Cell[width][height];
+    public Matrix(int rows, int columns) {
+        this.rows = rows;
+        this.columns = columns;
+        this.cellMat = new Cell[rows][columns];
+        fillMatrix();
     }
 
-    public void setEntry(int x, int y, Cell cell) {
-        cellMat[x][y] = cell;
+    public void setEntry(int row, int column, Cell cell) {
+        cellMat[row][column] = cell;
     }
 
-    public Cell getEntry(int x, int y) {
-        return cellMat[x][y];
+    public Cell getEntry(int row, int column) {
+        return cellMat[row][column];
+    }
+
+    private void fillMatrix() {
+        for (int column = 0; column < rows; column++)
+            Arrays.fill(cellMat[column], CellContainer.empty);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Matrix{\n");
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
                 Cell cell = cellMat[i][j];
                 if (cell instanceof Empty) {
                     sb.append("Empty ");
@@ -47,12 +55,12 @@ public class Matrix {
         return sb.toString();
     }
 
-    public int getHeight() {
-        return height;
+    public int getColumns() {
+        return columns;
     }
 
-    public int getWidth() {
-        return width;
+    public int getRows() {
+        return rows;
     }
 
     @Override
@@ -62,11 +70,11 @@ public class Matrix {
         if (!(obj instanceof Matrix))
             return false;
         Matrix differentMatrix = (Matrix) obj;
-        if (getHeight() != differentMatrix.getHeight() || getWidth() != differentMatrix.getWidth())
+        if (getColumns() != differentMatrix.getColumns() || getRows() != differentMatrix.getRows())
             return false;
 
-        for (int i = 0; i < width; i++)
-            for (int j = 0; j < height; j++) {
+        for (int i = 0; i < rows; i++)
+            for (int j = 0; j < columns; j++) {
                 if (getEntry(i, j) != differentMatrix.getEntry(i, j))
                     return false;
             }

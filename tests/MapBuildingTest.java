@@ -1,7 +1,7 @@
 import org.junit.Before;
 import org.junit.Test;
 import world.Matrix;
-import world.Pos;
+import world.Position;
 import world.WireBuilder;
 import world.WireMap;
 import world.cells.Cell;
@@ -33,11 +33,11 @@ public class MapBuildingTest {
 
     @Test
     public void createMap() {
-        HashMap<Pos, Cell> actualMap = wireMap.getWireMap();
+        HashMap<Position, Cell> actualMap = wireMap.getWireMap();
 
-        assertTrue(actualMap.get(new Pos(0, 0)) instanceof Wire);
-        assertTrue(actualMap.get(new Pos(1, 0)) instanceof Head);
-        assertTrue(actualMap.get(new Pos(1, 1)) instanceof Tail);
+        assertTrue(actualMap.get(new Position(0, 0)) instanceof Wire);
+        assertTrue(actualMap.get(new Position(1, 0)) instanceof Head);
+        assertTrue(actualMap.get(new Position(1, 1)) instanceof Tail);
     }
 
 }

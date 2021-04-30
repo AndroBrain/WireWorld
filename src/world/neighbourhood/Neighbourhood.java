@@ -1,8 +1,8 @@
 package world.neighbourhood;
 
 import world.Matrix;
-import world.Pos;
+import world.Position;
 
 public interface Neighbourhood {
-    int iterateNeighbourhood(Matrix matrix, Pos pos);
+    int iterateNeighbourhood(Matrix matrix, Position position);
 }
