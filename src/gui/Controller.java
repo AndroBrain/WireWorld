@@ -1,6 +1,5 @@
 package gui;
 
-import world.cells.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
@@ -9,6 +8,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import world.Matrix;
+import world.cells.CellContainer;
+import world.cells.Head;
+import world.cells.Tail;
+import world.cells.Wire;
 
 public class Controller {
 
@@ -22,34 +26,10 @@ public class Controller {
     private String iterationsInfo;
     private String delayInfo;
 
+    private double pixelWidth;
+    private double pixelHeight;
+
     private Canvas canvas;
-
-
-    public void addGreenCanvas(){
-        canvas = new Canvas(30, 30);
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-        gc.setFill(Color.GREEN);
-        gc.fillRoundRect(0, 0, 30, 30, 0, 0); // w kolejności - odległość x od krawędzi canvasa ; y -||- ; bok kwadratu ; -||- ; zaokrąglenie ; -||-
-
-    }
-
-    void makeGridPane(Cell[][] cellMap, int rows, int columns){
-        for(int y = 0; y < columns; y++){
-            for(int x = 0; x < rows; x++){
-                if(cellMap[x][y] instanceof Wire){
-                    addGreenCanvas();
-                    gridPane.add(canvas, 1, 1);
-//                    gridPane.add(new Button(), x, y);
-                }else if(cellMap[x][y] instanceof Head){
-                    gridPane.add(new Button(), x, y);
-                }else if(cellMap[x][y] instanceof Tail){
-                    gridPane.add(new Button(), x, y);
-                }
-            }
-        }
-
-    }
-
 
     @FXML
     private TextField xSize;
@@ -68,39 +48,47 @@ public class Controller {
 
     @FXML
     void startWireworld(ActionEvent event) {
-        System.out.println("Super");
-        if(xSize != null) {
-            xS = xSize.getText();
-            xInput = Integer.parseInt(xS);
-        } else {
-            xInput = 10;
-        }
-        if(ySize != null) {
-            yS = ySize.getText();
-            yInput = Integer.parseInt(yS);
-        } else {
-            yInput = 10;
-        }
-        if(iterationsTextField != null){
-            iterationsInfo = iterationsTextField.getText();
-            iterationsInput = Integer.parseInt(iterationsInfo);
-        } else {
-            iterationsInput = 10;
-        }
-        if(delayTextField != null) {
-            delayInfo = delayTextField.getText();
-            delayInput = Integer.parseInt(delayInfo);
-            System.out.println(xInput + " " + yInput + " " + iterationsInfo + " " + delayInfo);
-        } else {
-            delayInput = 10;
-        }
-        addGreenCanvas();
-        gridPane.add(canvas, 1, 1);
-        //makeGridPane();
-//        addGreenCanvas();
+        xInput = getInput(xSize.getText());
+        yInput = getInput(ySize.getText());
+        iterationsInput = getInput(iterationsTextField.getText());
+        delayInput = getInput(delayTextField.getText());
+        Matrix matrix = new Matrix(5, 5);
+
+        pixelWidth = gridPane.getWidth() / matrix.getColumns();
+        pixelHeight = gridPane.getHeight() / matrix.getRows();
+
+        matrix.setEntry(2, 2, CellContainer.wire);
+
+        makeGridPane(matrix);
     }
 
-    public void putCanvasInGridCell(){
+    public void addGreenCanvas(double pW, double pH) {
+        canvas = new Canvas(pW, pH);
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        gc.setFill(Color.GREEN);
+        gc.fillRoundRect(0, 0, pW, pH, 0, 0); // w kolejności - odległość x od krawędzi canvasa ; y -- ; bok kwadratu ; -- ; zaokrąglenie ; -||-
+    }
+
+    void makeGridPane(Matrix matrix) {
+        for (int x = 0; x < matrix.getRows(); x++) {
+            for (int y = 0; y < matrix.getColumns(); y++) {
+                if (matrix.getEntry(x, y) instanceof Wire) {
+                    addGreenCanvas(pixelWidth, pixelHeight);
+                    gridPane.add(canvas, x, y);
+                } else if (matrix.getEntry(x, y) instanceof Head) {
+                    gridPane.add(new Button(), x, y);
+                } else if (matrix.getEntry(x, y) instanceof Tail) {
+                    gridPane.add(new Button(), x, y);
+                }
+            }
+        }
+    }
+
+    private int getInput(String text) {
+        return text.length() > 0 ? Integer.parseInt(text) : 10;
+    }
+
+    public void putCanvasInGridCell() {
 
     }
 

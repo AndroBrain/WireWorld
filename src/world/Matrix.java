@@ -13,7 +13,7 @@ public class Matrix {
         this.rows = rows;
         this.columns = columns;
         this.cellMat = new Cell[rows][columns];
-        fillMatrix();
+        fillMatrixWithEmptyCells();
     }
 
     public void setEntry(int row, int column, Cell cell) {
@@ -24,7 +24,7 @@ public class Matrix {
         return cellMat[row][column];
     }
 
-    private void fillMatrix() {
+    private void fillMatrixWithEmptyCells() {
         for (int column = 0; column < rows; column++)
             Arrays.fill(cellMat[column], CellContainer.empty);
     }
