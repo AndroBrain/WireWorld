@@ -13,8 +13,9 @@ public class ShowScreen extends Application {
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("Wireworld");
-        primaryStage.setScene(new Scene(root, 800, 500));
+        primaryStage.setScene(new Scene(root, 688, 424));
         primaryStage.show();
+        primaryStage.setResizable(false);
     }
 
 
