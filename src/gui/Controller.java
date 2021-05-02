@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
-import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -18,16 +17,28 @@ public class Controller {
     private int yInput;
     private int iterationsInput;
     private int delayInput;
+    private int plainGridW;
+    private int plainGridH;
 
-    private String xS;
-    private String yS;
-    private String iterationsInfo;
-    private String delayInfo;
+    private int generateButtonPressed = 0;
+    private int startButtonPressed = 0;
 
     private double pixelWidth;
     private double pixelHeight;
 
     private Canvas canvas;
+
+    @FXML
+    private Button startButton;
+
+    @FXML
+    private Button generateButton;
+
+    @FXML
+    private TextField plainGridWidth;
+
+    @FXML
+    private TextField plainGridHeight;
 
     @FXML
     private TextField xSize;
@@ -43,6 +54,18 @@ public class Controller {
 
     @FXML
     private GridPane gridPane;
+
+    @FXML
+    void plainGridGenerate(ActionEvent event) {
+        plainGridW = getInput(plainGridWidth.getText());
+        plainGridH = getInput(plainGridHeight.getText());
+        Matrix matrix = new Matrix(plainGridW, plainGridH);
+        pixelWidth = gridPane.getWidth() / matrix.getRows();
+        pixelHeight = gridPane.getHeight() / matrix.getColumns();
+        makeGridPane(matrix);
+//        startButton.setDisable(false);
+//        generateButtonPressed = 1;
+    }
 
     @FXML
     void startWireworld(ActionEvent event) {
@@ -84,11 +107,9 @@ public class Controller {
 
         System.out.println(matrix);
 
-
-
-
-
         makeGridPane(matrix);
+//        generateButton.setDisable(false);
+        startButtonPressed = 1;
     }
 
     public void addGreenCanvas(double pW, double pH) {
@@ -96,6 +117,7 @@ public class Controller {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.setFill(Color.GREEN);
         gc.fillRoundRect(0, 0, pW, pH, 0, 0); // w kolejności - odległość x od krawędzi canvasa ; y -- ; bok kwadratu ; -- ; zaokrąglenie ; -||-
+        gc.strokeRoundRect(0, 0, pW, pH, 10, 10);
     }
 
     public void addYellowCanvas(double pW, double pH) {
@@ -103,6 +125,7 @@ public class Controller {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.setFill(Color.YELLOW);
         gc.fillRoundRect(0, 0, pW, pH, 0, 0);
+        gc.strokeRoundRect(0, 0, pW, pH, 10, 10);
     }
 
     public void addGrayCanvas(double pW, double pH) {
@@ -110,20 +133,23 @@ public class Controller {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.setFill(Color.GRAY);
         gc.fillRoundRect(0, 0, pW, pH, 0, 0);
+        gc.strokeRoundRect(0, 0, pW, pH, 10, 10);
     }
 
-    public void addWhiteCanvas(double pW, double pH) {
+    public void addBlackCanvas(double pW, double pH) {
         canvas = new Canvas(pW, pH);
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.setFill(Color.BLACK);
         gc.fillRoundRect(0, 0, pW, pH, 0, 0);
+        gc.setStroke(Color.RED);
+        gc.strokeRoundRect(0, 0, pW, pH, 10, 10);
     }
 
     void makeGridPane(Matrix matrix) {
         for (int x = 0; x < matrix.getRows(); x++) { // nie ma znaczenia kolejnosc iteracji x i y
             for (int y = 0; y < matrix.getColumns(); y++) {
                 if (matrix.getEntry(x,y) instanceof Empty){
-                    addWhiteCanvas(pixelWidth, pixelHeight);
+                    addBlackCanvas(pixelWidth, pixelHeight);
                     gridPane.add(canvas, x, y, 1,1);
                 }else if (matrix.getEntry(x, y) instanceof Wire) {
                     addGreenCanvas(pixelWidth, pixelHeight);
@@ -143,9 +169,6 @@ public class Controller {
         return text.length() > 0 ? Integer.parseInt(text) : 10;
     }
 
-    public void putCanvasInGridCell() {
-
-    }
 
     public int getxInput() {
         return xInput;

@@ -42,6 +42,12 @@
                   <Button layoutX="18.0" layoutY="64.0" mnemonicParsing="false" text="Wire" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                   <Button layoutX="18.0" layoutY="89.0" mnemonicParsing="false" text="OR" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                   <Button layoutX="18.0" layoutY="114.0" mnemonicParsing="false" text="AND" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                  <Button fx:id="generateButton" layoutY="232.0" mnemonicParsing="false" onAction="#plainGridGenerate" text="Generate" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                  <Label layoutX="39.0" layoutY="148.0" text="Generate plain grid:" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                  <Label layoutY="178.0" text="Width:" AnchorPane.leftAnchor="0.0" />
+                  <Label layoutX="-2.0" layoutY="205.0" text="Height:" AnchorPane.leftAnchor="0.0" />
+                  <TextField fx:id="plainGridWidth" layoutX="46.0" layoutY="174.0" prefHeight="25.0" prefWidth="34.0" AnchorPane.leftAnchor="46.0" />
+                  <TextField fx:id="plainGridHeight" layoutX="46.0" layoutY="201.0" prefHeight="25.0" prefWidth="34.0" AnchorPane.leftAnchor="46.0" />
                </children>
             </AnchorPane>
          </right>
@@ -66,7 +72,7 @@
                   <Label layoutX="14.0" layoutY="40.0" text="y:" />
                   <Label layoutX="14.0" layoutY="64.0" text="Iterations:" />
                   <Label layoutX="14.0" layoutY="187.0" text="Delay (default 10ms):" />
-                  <Button layoutX="62.0" layoutY="312.0" mnemonicParsing="false" onAction="#startWireworld" text="START" />
+                  <Button fx:id="startButton" layoutX="62.0" layoutY="312.0" mnemonicParsing="false" onAction="#startWireworld" text="START" />
                   <TextField id="xSize" layoutX="24.0" layoutY="10.0" prefHeight="25.0" prefWidth="50.0" fx:id="xSize" />
                   <TextField id="ySize" fx:id="ySize" layoutX="24.0" layoutY="36.0" prefHeight="25.0" prefWidth="50.0" />
                   <TextField id="iterationsTextField" fx:id="iterationsTextField" layoutX="13.0" layoutY="81.0" />
