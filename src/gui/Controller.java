@@ -6,10 +6,16 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import world.Matrix;
 import world.cells.*;
+
+import java.io.File;
 
 public class Controller {
 
@@ -27,6 +33,8 @@ public class Controller {
     private double pixelHeight;
 
     private Canvas canvas;
+
+    private File file;
 
     @FXML
     private Button startButton;
@@ -56,6 +64,20 @@ public class Controller {
     private GridPane gridPane;
 
     @FXML
+    private AnchorPane rootPane;
+
+    @FXML
+    void openFile(ActionEvent event) {
+
+        final FileChooser fileChooser = new FileChooser();
+        Stage stage = (Stage)rootPane.getScene().getWindow();
+        file = fileChooser.showOpenDialog(stage);
+        if(file != null){
+            System.out.println("Path: " + file.getAbsolutePath());
+        }
+    }
+
+    @FXML
     void plainGridGenerate(ActionEvent event) {
         plainGridW = getInput(plainGridWidth.getText());
         plainGridH = getInput(plainGridHeight.getText());
@@ -81,8 +103,8 @@ public class Controller {
 
         matrix.setEntry(1, 2, CellContainer.wire);
         matrix.setEntry(2, 2, CellContainer.wire);
-        matrix.setEntry(3, 2, CellContainer.wire);
-        matrix.setEntry(4, 2, CellContainer.wire);
+        matrix.setEntry(3, 2, CellContainer.tail);
+        matrix.setEntry(4, 2, CellContainer.head);
         matrix.setEntry(4, 3, CellContainer.wire);
         matrix.setEntry(4, 4, CellContainer.wire);
         matrix.setEntry(4, 5, CellContainer.wire);
@@ -184,5 +206,9 @@ public class Controller {
 
     public int getDelayInput() {
         return delayInput;
+    }
+
+    public File getFile() {
+        return file;
     }
 }
