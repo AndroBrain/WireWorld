@@ -1,5 +1,6 @@
 package gui;
 
+import files_io.Input;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
@@ -11,8 +12,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import world.Matrix;
-import world.cells.*;
+import world.WireMapManager;
+import world.WorldDimensions;
 
 import java.io.File;
 
@@ -67,7 +68,6 @@ public class Controller {
 
     @FXML
     void openFile(ActionEvent event) {
-
         final FileChooser fileChooser = new FileChooser();
         Stage stage = (Stage) rootPane.getScene().getWindow();
         file = fileChooser.showOpenDialog(stage);
@@ -80,10 +80,10 @@ public class Controller {
     void plainGridGenerate(ActionEvent event) {
         plainGridW = getInput(plainGridWidth.getText());
         plainGridH = getInput(plainGridHeight.getText());
-        Matrix matrix = new Matrix(plainGridW, plainGridH);
-        pixelWidth = gridPane.getWidth() / matrix.getRows();
-        pixelHeight = gridPane.getHeight() / matrix.getColumns();
-        makeGridPane(matrix);
+//        Matrix matrix = new Matrix(plainGridW, plainGridH);
+        //    pixelWidth = gridPane.getWidth() / matrix.getRows();
+        //   pixelHeight = gridPane.getHeight() / matrix.getColumns();
+        //      makeGridPane(matrix);
 //        startButton.setDisable(false);
 //        generateButtonPressed = 1;
     }
@@ -95,95 +95,42 @@ public class Controller {
         yInput = getInput(ySize.getText());
         iterationsInput = getInput(iterationsTextField.getText());
         delayInput = getInput(delayTextField.getText());
-        Matrix matrix = new Matrix(25, 25);
 
-        pixelWidth = gridPane.getWidth() / matrix.getRows();
-        pixelHeight = gridPane.getHeight() / matrix.getColumns();
+        WireMapManager wireMapManager = Input.load(file.getAbsolutePath());
 
-        matrix.setEntry(1, 2, CellContainer.wire);
-        matrix.setEntry(2, 2, CellContainer.wire);
-        matrix.setEntry(3, 2, CellContainer.tail);
-        matrix.setEntry(4, 2, CellContainer.head);
-        matrix.setEntry(4, 3, CellContainer.wire);
-        matrix.setEntry(4, 4, CellContainer.wire);
-        matrix.setEntry(4, 5, CellContainer.wire);
-        matrix.setEntry(4, 6, CellContainer.wire);
-        matrix.setEntry(4, 7, CellContainer.wire);
-        matrix.setEntry(4, 8, CellContainer.wire);
-        matrix.setEntry(4, 9, CellContainer.wire);
-        matrix.setEntry(4, 10, CellContainer.wire);
-        matrix.setEntry(4, 11, CellContainer.wire);
-        matrix.setEntry(4, 12, CellContainer.wire);
-        matrix.setEntry(4, 13, CellContainer.wire);
-        matrix.setEntry(5, 13, CellContainer.wire);
-        matrix.setEntry(6, 13, CellContainer.wire);
-        matrix.setEntry(7, 13, CellContainer.wire);
-        matrix.setEntry(8, 13, CellContainer.wire);
-        matrix.setEntry(9, 13, CellContainer.wire);
-        matrix.setEntry(10, 13, CellContainer.wire);
-        matrix.setEntry(11, 13, CellContainer.wire);
-        matrix.setEntry(12, 13, CellContainer.wire);
-        matrix.setEntry(13, 13, CellContainer.wire);
-        matrix.setEntry(14, 13, CellContainer.wire);
+        if (wireMapManager != null) {
+            WorldDimensions worldDimensions = wireMapManager.getWorldDimensions();
 
-        System.out.println(matrix);
+            pixelWidth = gridPane.getWidth() / worldDimensions.getRows();
+            pixelHeight = gridPane.getHeight() / worldDimensions.getColumns();
 
-        makeGridPane(matrix);
-//        generateButton.setDisable(false);
+            int rows = worldDimensions.getRows();
+            int columns = worldDimensions.getColumns();
+
+            for (int x = 0; x < rows; x++)
+                for (int y = 0; y < columns; y++) {
+                    addCanvasWithStroke(pixelWidth, pixelHeight, Color.BLACK, Color.RED);
+                    gridPane.add(canvas, x, y, 1, 1);
+                }
+
+            wireMapManager.getWireMap().forEach((position, cell) -> {
+                int x = position.getX();
+                int y = position.getY();
+                addCanvasWithStroke(pixelWidth, pixelHeight, cell.getColor(), Color.RED);
+                gridPane.add(canvas, x, y, 1, 1);
+            });
+        }
+
         startButtonPressed = 1;
     }
 
-    public void addGreenCanvas(double pW, double pH) {
-        canvas = new Canvas(pW, pH);
+    private void addCanvasWithStroke(double pW, double pH, Color canvasColor, Color strokeColor) {
+        canvas = new Canvas(pixelWidth, pixelHeight);
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        gc.setFill(Color.GREEN);
+        gc.setFill(canvasColor);
         gc.fillRoundRect(0, 0, pW, pH, 0, 0); // w kolejności - odległość x od krawędzi canvasa ; y -- ; bok kwadratu ; -- ; zaokrąglenie ; -||-
-        gc.strokeRoundRect(0, 0, pW, pH, 10, 10);
-    }
-
-    public void addYellowCanvas(double pW, double pH) {
-        canvas = new Canvas(pW, pH);
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-        gc.setFill(Color.YELLOW);
-        gc.fillRoundRect(0, 0, pW, pH, 0, 0);
-        gc.strokeRoundRect(0, 0, pW, pH, 10, 10);
-    }
-
-    public void addGrayCanvas(double pW, double pH) {
-        canvas = new Canvas(pW, pH);
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-        gc.setFill(Color.GRAY);
-        gc.fillRoundRect(0, 0, pW, pH, 0, 0);
-        gc.strokeRoundRect(0, 0, pW, pH, 10, 10);
-    }
-
-    public void addBlackCanvas(double pW, double pH) {
-        canvas = new Canvas(pW, pH);
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-        gc.setFill(Color.BLACK);
-        gc.fillRoundRect(0, 0, pW, pH, 0, 0);
-        gc.setStroke(Color.RED);
-        gc.strokeRoundRect(0, 0, pW, pH, 10, 10);
-    }
-
-    void makeGridPane(Matrix matrix) {
-        for (int x = 0; x < matrix.getRows(); x++) { // nie ma znaczenia kolejnosc iteracji x i y
-            for (int y = 0; y < matrix.getColumns(); y++) {
-                if (matrix.getEntry(x, y) instanceof Empty) {
-                    addBlackCanvas(pixelWidth, pixelHeight);
-                    gridPane.add(canvas, x, y, 1, 1);
-                } else if (matrix.getEntry(x, y) instanceof Wire) {
-                    addGreenCanvas(pixelWidth, pixelHeight);
-                    gridPane.add(canvas, x, y, 1, 1);
-                } else if (matrix.getEntry(x, y) instanceof Head) {
-                    addYellowCanvas(pixelWidth, pixelHeight);
-                    gridPane.add(canvas, x, y, 1, 1);
-                } else if (matrix.getEntry(x, y) instanceof Tail) {
-                    addGrayCanvas(pixelWidth, pixelHeight);
-                    gridPane.add(canvas, x, y, 1, 1);
-                }
-            }
-        }
+        gc.setStroke(strokeColor);
+        gc.strokeRoundRect(0, 0, pW, pH, 0, 0);
     }
 
     private int getInput(String text) {

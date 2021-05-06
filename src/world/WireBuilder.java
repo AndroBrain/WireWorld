@@ -3,22 +3,22 @@ package world;
 import world.cells.CellContainer;
 
 public class WireBuilder {
-    private final WireMap wireMap;
+    private final WireMapManager wireMapManager;
 
-    public WireBuilder(WireMap wireMap) {
-        this.wireMap = wireMap;
+    public WireBuilder(WireMapManager wireMapManager) {
+        this.wireMapManager = wireMapManager;
     }
 
     public void putWire(int x, int y) {
-        wireMap.putEntry(x, y, CellContainer.wire);
+        wireMapManager.putEntry(x, y, CellContainer.wire);
     }
 
     public void putHead(int x, int y) {
-        wireMap.putEntry(x, y, CellContainer.head);
+        wireMapManager.putEntry(x, y, CellContainer.head);
     }
 
     public void putTail(int x, int y) {
-        wireMap.putEntry(x, y, CellContainer.tail);
+        wireMapManager.putEntry(x, y, CellContainer.tail);
     }
 
 }

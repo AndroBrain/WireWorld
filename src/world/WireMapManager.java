@@ -10,13 +10,15 @@ import world.rules.Rules;
 
 import java.util.HashMap;
 
-public class WireMap {
+public class WireMapManager {
     private HashMap<Position, Cell> wireMap;
     private final Neighbourhood neighbourhood;
     private final Rules rules;
+    private final WorldDimensions worldDimensions;
 
-    public WireMap(WorldDimensions worldDimensions, Rules rules) {
+    public WireMapManager(WorldDimensions worldDimensions, Rules rules) {
         this.wireMap = new HashMap<>();
+        this.worldDimensions = worldDimensions;
         this.neighbourhood = new Moor(wireMap, worldDimensions);
         this.rules = rules;
     }
@@ -42,10 +44,12 @@ public class WireMap {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Wire:\n");
-        wireMap.forEach((position, cell) -> {
-            sb.append(position.getX() + " " + position.getY() + " " + cell).append('\n');
-        });
+        wireMap.forEach((position, cell) -> sb.append(position.getX()).append(" ").append(position.getY()).append(" ").append(cell).append('\n'));
         return sb.toString();
+    }
+
+    public WorldDimensions getWorldDimensions() {
+        return worldDimensions;
     }
 
     public HashMap<Position, Cell> getWireMap() {
