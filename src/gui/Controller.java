@@ -108,11 +108,10 @@ public class Controller {
             pixelWidth = gridPane.getWidth() / max;
             pixelHeight = gridPane.getHeight() / max;
 
-
             for (int x = 0; x < max; x++)
                 for (int y = 0; y < max; y++) {
                     addCanvasWithStroke(pixelWidth, pixelHeight, Color.BLACK, Color.RED);
-                    gridPane.add(canvas, x, y, 1, 1);
+                    gridPane.add(canvas, y, x, 1, 1);
                 }
 
             drawWire(wireMapManager);

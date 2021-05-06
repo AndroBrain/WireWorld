@@ -19,7 +19,7 @@ public class Input {
                 WireMapManager wireMapManager = new WireMapManager(worldDimensions, new WireRules());
                 WireBuilder wireBuilder = new WireBuilder(wireMapManager);
 
-                while ((line = br.readLine()) != null) {
+                while ((line = br.readLine()) != null && !line.isEmpty()) {
                     String[] wireData = line.split(" ");
                     String cell = wireData[0];
                     int x = Integer.parseInt(wireData[1]);
