@@ -1,4 +1,4 @@
-package world;
+package world.build;
 
 public class WorldDimensions {
     private final int rows;

@@ -1,5 +1,6 @@
-package world;
+package world.build;
 
+import world.WireMapManager;
 import world.cells.CellContainer;
 
 public class WireBuilder {

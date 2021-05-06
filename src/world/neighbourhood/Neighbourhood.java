@@ -1,7 +1,7 @@
 package world.neighbourhood;
 
 import world.Position;
-import world.WorldDimensions;
+import world.build.WorldDimensions;
 import world.cells.Cell;
 
 import java.util.HashMap;

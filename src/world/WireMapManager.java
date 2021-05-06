@@ -1,5 +1,6 @@
 package world;
 
+import world.build.WorldDimensions;
 import world.cells.Cell;
 import world.cells.CellContainer;
 import world.cells.Head;

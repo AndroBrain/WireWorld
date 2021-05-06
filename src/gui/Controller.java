@@ -13,7 +13,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import world.WireMapManager;
-import world.WorldDimensions;
+import world.build.WorldDimensions;
 
 import java.io.File;
 
@@ -100,15 +100,17 @@ public class Controller {
 
         if (wireMapManager != null) {
             WorldDimensions worldDimensions = wireMapManager.getWorldDimensions();
-
-            pixelWidth = gridPane.getWidth() / worldDimensions.getRows();
-            pixelHeight = gridPane.getHeight() / worldDimensions.getColumns();
-
             int rows = worldDimensions.getRows();
             int columns = worldDimensions.getColumns();
 
-            for (int x = 0; x < rows; x++)
-                for (int y = 0; y < columns; y++) {
+            int max = Math.max(rows, columns);
+
+            pixelWidth = gridPane.getWidth() / max;
+            pixelHeight = gridPane.getHeight() / max;
+
+
+            for (int x = 0; x < max; x++)
+                for (int y = 0; y < max; y++) {
                     addCanvasWithStroke(pixelWidth, pixelHeight, Color.BLACK, Color.RED);
                     gridPane.add(canvas, x, y, 1, 1);
                 }

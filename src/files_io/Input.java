@@ -1,8 +1,8 @@
 package files_io;
 
-import world.WireBuilder;
 import world.WireMapManager;
-import world.WorldDimensions;
+import world.build.WireBuilder;
+import world.build.WorldDimensions;
 import world.rules.WireRules;
 
 import java.io.BufferedReader;
