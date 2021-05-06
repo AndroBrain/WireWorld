@@ -7,15 +7,13 @@ import world.cells.Cell;
 import java.util.HashMap;
 
 public abstract class Neighbourhood {
-    HashMap<Position, Cell> map;
     WorldDimensions worldDimensions;
 
-    public Neighbourhood(HashMap<Position, Cell> map, WorldDimensions worldDimensions) {
-        this.map = map;
+    public Neighbourhood(WorldDimensions worldDimensions) {
         this.worldDimensions = worldDimensions;
     }
 
-    public int iterateNeighbourhood(Position position) {
+    public int iterateNeighbourhood(HashMap<Position, Cell> map, Position position) {
         return 0;
     }
 }

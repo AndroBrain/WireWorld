@@ -3,6 +3,7 @@ package files_io;
 import world.WireMapManager;
 import world.build.WireBuilder;
 import world.build.WorldDimensions;
+import world.neighbourhood.Moor;
 import world.rules.WireRules;
 
 import java.io.BufferedReader;
@@ -16,7 +17,7 @@ public class Input {
                 String[] dimensions = line.split(" ");
                 WorldDimensions worldDimensions = new WorldDimensions(Integer.parseInt(dimensions[0]), Integer.parseInt(dimensions[1]));
 
-                WireMapManager wireMapManager = new WireMapManager(worldDimensions, new WireRules());
+                WireMapManager wireMapManager = new WireMapManager(worldDimensions, new WireRules(), new Moor(worldDimensions));
                 WireBuilder wireBuilder = new WireBuilder(wireMapManager);
 
                 while ((line = br.readLine()) != null && !line.isEmpty()) {

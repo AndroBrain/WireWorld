@@ -115,6 +115,7 @@ public class Controller {
                 }
 
             drawWire(wireMapManager);
+
         }
 
         startButtonPressed = 1;

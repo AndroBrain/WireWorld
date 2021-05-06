@@ -9,12 +9,12 @@ import java.util.HashMap;
 
 public class Moor extends Neighbourhood {
 
-    public Moor(HashMap<Position, Cell> map, WorldDimensions worldDimensions) {
-        super(map, worldDimensions);
+    public Moor(WorldDimensions worldDimensions) {
+        super(worldDimensions);
     }
 
     @Override
-    public int iterateNeighbourhood(Position position) {
+    public int iterateNeighbourhood(HashMap<Position, Cell> map, Position position) {
         int x = position.getX();
         int y = position.getY();
         int neighbours = 0;
