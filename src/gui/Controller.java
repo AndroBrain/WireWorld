@@ -115,15 +115,19 @@ public class Controller {
                     gridPane.add(canvas, x, y, 1, 1);
                 }
 
-            wireMapManager.getWireMap().forEach((position, cell) -> {
-                int x = position.getX();
-                int y = position.getY();
-                addCanvasWithStroke(pixelWidth, pixelHeight, cell.getColor(), Color.RED);
-                gridPane.add(canvas, x, y, 1, 1);
-            });
+            drawWire(wireMapManager);
         }
 
         startButtonPressed = 1;
+    }
+
+    private void drawWire(WireMapManager wireMapManager) {
+        wireMapManager.getWireMap().forEach((position, cell) -> {
+            int x = position.getX();
+            int y = position.getY();
+            addCanvasWithStroke(pixelWidth, pixelHeight, cell.getColor(), Color.RED);
+            gridPane.add(canvas, x, y, 1, 1);
+        });
     }
 
     private void addCanvasWithStroke(double pW, double pH, Color canvasColor, Color strokeColor) {

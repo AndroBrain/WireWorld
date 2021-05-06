@@ -1,6 +1,9 @@
-3 8
+10 10
 ElectronHead 1 3
-ElectronHead 1 7
 ElectronTail 0 3
-ElectronTail 0 7
-ElectronTail 0 7
+Wire 2 3
+Wire 3 3
+Wire 4 3
+Wire 5 3
+Wire 6 3
+Wire 7 3
