@@ -9,7 +9,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import world.Matrix;
@@ -70,9 +69,9 @@ public class Controller {
     void openFile(ActionEvent event) {
 
         final FileChooser fileChooser = new FileChooser();
-        Stage stage = (Stage)rootPane.getScene().getWindow();
+        Stage stage = (Stage) rootPane.getScene().getWindow();
         file = fileChooser.showOpenDialog(stage);
-        if(file != null){
+        if (file != null) {
             System.out.println("Path: " + file.getAbsolutePath());
         }
     }
@@ -170,15 +169,15 @@ public class Controller {
     void makeGridPane(Matrix matrix) {
         for (int x = 0; x < matrix.getRows(); x++) { // nie ma znaczenia kolejnosc iteracji x i y
             for (int y = 0; y < matrix.getColumns(); y++) {
-                if (matrix.getEntry(x,y) instanceof Empty){
+                if (matrix.getEntry(x, y) instanceof Empty) {
                     addBlackCanvas(pixelWidth, pixelHeight);
-                    gridPane.add(canvas, x, y, 1,1);
-                }else if (matrix.getEntry(x, y) instanceof Wire) {
+                    gridPane.add(canvas, x, y, 1, 1);
+                } else if (matrix.getEntry(x, y) instanceof Wire) {
                     addGreenCanvas(pixelWidth, pixelHeight);
-                    gridPane.add(canvas, x, y, 1,1);
+                    gridPane.add(canvas, x, y, 1, 1);
                 } else if (matrix.getEntry(x, y) instanceof Head) {
                     addYellowCanvas(pixelWidth, pixelHeight);
-                    gridPane.add(canvas, x, y, 1,1);
+                    gridPane.add(canvas, x, y, 1, 1);
                 } else if (matrix.getEntry(x, y) instanceof Tail) {
                     addGrayCanvas(pixelWidth, pixelHeight);
                     gridPane.add(canvas, x, y, 1, 1);

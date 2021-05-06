@@ -1,4 +1,4 @@
 package world.cells;
 
-public class Tail extends Cell{
+public class Tail extends Cell {
 }

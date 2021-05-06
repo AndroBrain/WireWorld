@@ -1,4 +1,4 @@
 package world.cells;
 
-public class Empty extends Cell{
+public class Empty extends Cell {
 }
