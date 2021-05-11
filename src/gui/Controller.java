@@ -115,7 +115,6 @@ public class Controller {
                 }
 
             drawWire(wireMapManager);
-
         }
 
         startButtonPressed = 1;
@@ -126,7 +125,7 @@ public class Controller {
             int x = position.getX();
             int y = position.getY();
             addCanvasWithStroke(pixelWidth, pixelHeight, cell.getColor(), Color.RED);
-            gridPane.add(canvas, x, y, 1, 1);
+            gridPane.add(canvas, y, x, 1, 1);
         });
     }
 

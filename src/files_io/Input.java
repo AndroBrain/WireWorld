@@ -22,10 +22,10 @@ public class Input {
 
                 while ((line = br.readLine()) != null && !line.isEmpty()) {
                     String[] wireData = line.split(" ");
-                    String cell = wireData[0];
+                    String cellType = wireData[0];
                     int x = Integer.parseInt(wireData[1]);
                     int y = Integer.parseInt(wireData[2]);
-                    switch (cell) {
+                    switch (cellType) {
                         case "ElectronHead":
                             wireBuilder.putHead(x, y);
                             break;
@@ -35,9 +35,9 @@ public class Input {
                         case "Wire":
                             wireBuilder.putWire(x, y);
                             break;
-//                        case "Diode":
-//                            wireBuilder.putDiode(x,y,wireData[3]);
-//                            break;
+                        case "Diode":
+                            wireBuilder.putDiode(x, y, wireData[3].toCharArray()[0]);
+                            break;
                     }
                 }
                 return wireMapManager;

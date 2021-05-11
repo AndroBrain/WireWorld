@@ -22,4 +22,8 @@ public class WireBuilder {
         wireMapManager.putEntry(x, y, CellContainer.tail);
     }
 
+    public void putDiode(int x, int y, char direction) {
+        DiodeBuilder.build(wireMapManager, x, y, direction);
+    }
+
 }
