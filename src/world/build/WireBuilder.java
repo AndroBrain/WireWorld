@@ -1,7 +1,7 @@
 package world.build;
 
 import world.WireMapManager;
-import world.cells.CellContainer;
+import world.other.CellConstants;
 
 public class WireBuilder {
     private final WireMapManager wireMapManager;
@@ -11,15 +11,15 @@ public class WireBuilder {
     }
 
     public void putWire(int x, int y) {
-        wireMapManager.putEntry(x, y, CellContainer.wire);
+        wireMapManager.putEntry(x, y, CellConstants.WIRE);
     }
 
     public void putHead(int x, int y) {
-        wireMapManager.putEntry(x, y, CellContainer.head);
+        wireMapManager.putEntry(x, y, CellConstants.HEAD);
     }
 
     public void putTail(int x, int y) {
-        wireMapManager.putEntry(x, y, CellContainer.tail);
+        wireMapManager.putEntry(x, y, CellConstants.TAIL);
     }
 
     public void putDiode(int x, int y, char direction) {

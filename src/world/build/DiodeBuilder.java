@@ -1,13 +1,11 @@
 package world.build;
 
 import world.WireMapManager;
-import world.cells.Cell;
-import world.cells.CellContainer;
 
-import static world.other.Constants.*;
+import static world.other.CellConstants.WIRE;
+import static world.other.OtherConstants.*;
 
 public class DiodeBuilder {
-    private static final Cell WIRE = CellContainer.wire;
 
     public static void build(WireMapManager wireMapManager, int x, int y, char direction) {
         for (int row = x - 1; row < x + 2; row++)

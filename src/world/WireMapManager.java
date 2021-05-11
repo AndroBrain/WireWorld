@@ -2,8 +2,8 @@ package world;
 
 import world.build.WorldDimensions;
 import world.cells.Cell;
-import world.cells.CellContainer;
 import world.neighbourhood.Neighbourhood;
+import world.other.CellConstants;
 import world.rules.Rules;
 
 import java.util.HashMap;
@@ -29,10 +29,10 @@ public class WireMapManager {
     public void iterate() {
         HashMap<Position, Cell> map = new HashMap<>();
         wireMap.forEach((position, cell) -> {
-            if (cell == CellContainer.head) {
-                map.put(position, CellContainer.tail);
-            } else if (cell == CellContainer.tail) {
-                map.put(position, CellContainer.wire);
+            if (cell == CellConstants.HEAD) {
+                map.put(position, CellConstants.TAIL);
+            } else if (cell == CellConstants.TAIL) {
+                map.put(position, CellConstants.WIRE);
             } else {
                 map.put(position, rules.update(neighbourhood.iterateNeighbourhood(wireMap, position)));
             }

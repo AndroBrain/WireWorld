@@ -5,8 +5,8 @@ import org.junit.Before;
 import org.junit.Test;
 import world.WireMapManager;
 import world.cells.Cell;
-import world.cells.CellContainer;
 import world.neighbourhood.Moor;
+import world.other.CellConstants;
 import world.rules.WireRules;
 
 import java.util.concurrent.atomic.AtomicInteger;
@@ -16,7 +16,7 @@ import static org.junit.Assert.assertNotNull;
 
 public class DiodeBuilderTest {
     private static final String path = "test/world/build/";
-    private static final Cell WIRE = CellContainer.wire;
+    private static final Cell WIRE = CellConstants.WIRE;
 
     private WireMapManager wireMapManagerExpected;
 
