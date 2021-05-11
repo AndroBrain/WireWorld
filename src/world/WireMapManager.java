@@ -22,7 +22,8 @@ public class WireMapManager {
     }
 
     public void putEntry(int x, int y, Cell cell) {
-        wireMap.put(new Position(x, y), cell);
+        if (x >= 0 && x < worldDimensions.getRows() && y >= 0 && y < worldDimensions.getColumns())
+            wireMap.put(new Position(x, y), cell);
     }
 
     public void iterate() {
