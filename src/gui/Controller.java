@@ -1,6 +1,7 @@
 package gui;
 
 import files_io.Input;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
@@ -114,7 +115,17 @@ public class Controller {
                     gridPane.add(canvas, y, x, 1, 1);
                 }
 
-            drawWire(wireMapManager);
+            new Thread(() -> {
+                for (int i = 0; i < getIterationsInput(); i++) {
+                    wireMapManager.iterate();
+                    Platform.runLater(() -> drawWire(wireMapManager));
+                    try {
+                        Thread.sleep(getDelayInput());
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
         }
 
         startButtonPressed = 1;
@@ -152,11 +163,11 @@ public class Controller {
     }
 
     public int getIterationsInput() {
-        return iterationsInput;
+        return iterationsInput > 0 ? iterationsInput : 10;
     }
 
     public int getDelayInput() {
-        return delayInput;
+        return Math.max(delayInput, 10);
     }
 
     public File getFile() {
