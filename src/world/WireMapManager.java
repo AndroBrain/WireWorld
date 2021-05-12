@@ -8,6 +8,9 @@ import world.rules.Rules;
 
 import java.util.HashMap;
 
+import static world.other.CellConstants.HEAD;
+import static world.other.CellConstants.TAIL;
+
 public class WireMapManager {
     private HashMap<Position, Cell> wireMap;
     private final Neighbourhood neighbourhood;
@@ -23,15 +26,18 @@ public class WireMapManager {
 
     public void putEntry(int x, int y, Cell cell) {
         if (x >= 0 && x < worldDimensions.getRows() && y >= 0 && y < worldDimensions.getColumns())
-            wireMap.put(new Position(x, y), cell);
+            if (!wireMap.containsKey(new Position(x, y)))
+                wireMap.put(new Position(x, y), cell);
+            else if (cell == HEAD || cell == TAIL)
+                wireMap.replace(new Position(x, y), cell);
     }
 
     public void iterate() {
         HashMap<Position, Cell> map = new HashMap<>();
         wireMap.forEach((position, cell) -> {
-            if (cell == CellConstants.HEAD) {
-                map.put(position, CellConstants.TAIL);
-            } else if (cell == CellConstants.TAIL) {
+            if (cell == HEAD) {
+                map.put(position, TAIL);
+            } else if (cell == TAIL) {
                 map.put(position, CellConstants.WIRE);
             } else {
                 map.put(position, rules.update(neighbourhood.iterateNeighbourhood(wireMap, position)));

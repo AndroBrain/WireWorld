@@ -114,16 +114,17 @@ public class Controller {
                     addCanvasWithStroke(pixelWidth, pixelHeight, Color.BLACK, Color.RED);
                     gridPane.add(canvas, y, x, 1, 1);
                 }
+            drawWire(wireMapManager);
 
             new Thread(() -> {
                 for (int i = 0; i < getIterationsInput(); i++) {
-                    wireMapManager.iterate();
-                    Platform.runLater(() -> drawWire(wireMapManager));
                     try {
                         Thread.sleep(getDelayInput());
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
+                    wireMapManager.iterate();
+                    Platform.runLater(() -> drawWire(wireMapManager));
                 }
             }).start();
         }
