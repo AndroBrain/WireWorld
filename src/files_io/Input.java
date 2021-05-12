@@ -41,6 +41,9 @@ public class Input {
                         case "OrGate":
                             wireBuilder.putOrGate(x, y, wireData[3].charAt(0));
                             break;
+                        case "ElectronGenerator":
+                            wireBuilder.putElectronGenerator(x, y, wireData[3], Integer.parseInt(wireData[4]), Integer.parseInt(wireData[5]));
+                            break;
                     }
                 }
                 return wireMapManager;

@@ -2,6 +2,7 @@ package world.build;
 
 import world.WireMapManager;
 import world.build.subbuilders.DiodeBuilder;
+import world.build.subbuilders.ElectronGeneratorBuilder;
 import world.build.subbuilders.OrGateBuilder;
 import world.other.CellConstants;
 
@@ -30,6 +31,10 @@ public class WireBuilder {
 
     public void putOrGate(int x, int y, char direction) {
         OrGateBuilder.build(this, x, y, direction);
+    }
+
+    public void putElectronGenerator(int x, int y, String direction, int width, int height) {
+        ElectronGeneratorBuilder.build(this, x, y, direction, width, height);
     }
 
 }
