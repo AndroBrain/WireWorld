@@ -1,8 +1,8 @@
 package world.neighbourhood;
 
-import world.Position;
 import world.build.WorldDimensions;
 import world.cells.Cell;
+import world.other.Position;
 
 import java.util.HashMap;
 

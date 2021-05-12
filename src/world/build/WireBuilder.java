@@ -5,25 +5,34 @@ import world.build.subbuilders.AndNotGateBuilder;
 import world.build.subbuilders.DiodeBuilder;
 import world.build.subbuilders.ElectronGeneratorBuilder;
 import world.build.subbuilders.OrGateBuilder;
+import world.cells.Cell;
 import world.other.CellConstants;
+import world.other.Position;
+
+import java.util.HashMap;
+
+import static world.other.CellConstants.HEAD;
+import static world.other.CellConstants.TAIL;
 
 public class WireBuilder {
-    private final WireMapManager wireMapManager;
+    private final HashMap<Position, Cell> wireMap;
+    private final WorldDimensions worldDimensions;
 
     public WireBuilder(WireMapManager wireMapManager) {
-        this.wireMapManager = wireMapManager;
+        this.wireMap = wireMapManager.getWireMap();
+        worldDimensions = wireMapManager.getWorldDimensions();
     }
 
     public void putWire(int x, int y) {
-        wireMapManager.putEntry(x, y, CellConstants.WIRE);
+        putEntry(x, y, CellConstants.WIRE);
     }
 
     public void putHead(int x, int y) {
-        wireMapManager.putEntry(x, y, CellConstants.HEAD);
+        putEntry(x, y, CellConstants.HEAD);
     }
 
     public void putTail(int x, int y) {
-        wireMapManager.putEntry(x, y, CellConstants.TAIL);
+        putEntry(x, y, CellConstants.TAIL);
     }
 
     public void putDiode(int x, int y, char direction) {
@@ -42,4 +51,11 @@ public class WireBuilder {
         AndNotGateBuilder.build(this, x, y);
     }
 
+    private void putEntry(int x, int y, Cell cell) {
+        if (x >= 0 && x < worldDimensions.getRows() && y >= 0 && y < worldDimensions.getColumns())
+            if (!wireMap.containsKey(new Position(x, y)))
+                wireMap.put(new Position(x, y), cell);
+            else if (cell == HEAD || cell == TAIL)
+                wireMap.replace(new Position(x, y), cell);
+    }
 }

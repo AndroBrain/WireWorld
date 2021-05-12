@@ -4,6 +4,7 @@ import world.build.WorldDimensions;
 import world.cells.Cell;
 import world.neighbourhood.Neighbourhood;
 import world.other.CellConstants;
+import world.other.Position;
 import world.rules.Rules;
 
 import java.util.HashMap;
@@ -24,6 +25,7 @@ public class WireMapManager {
         this.rules = rules;
     }
 
+    //  For Testing
     public void putEntry(int x, int y, Cell cell) {
         if (x >= 0 && x < worldDimensions.getRows() && y >= 0 && y < worldDimensions.getColumns())
             if (!wireMap.containsKey(new Position(x, y)))
