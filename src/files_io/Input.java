@@ -36,7 +36,10 @@ public class Input {
                             wireBuilder.putWire(x, y);
                             break;
                         case "Diode":
-                            wireBuilder.putDiode(x, y, wireData[3].toCharArray()[0]);
+                            wireBuilder.putDiode(x, y, wireData[3].charAt(0));
+                            break;
+                        case "OrGate":
+                            wireBuilder.putOrGate(x, y, wireData[3].charAt(0));
                             break;
                     }
                 }

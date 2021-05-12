@@ -1,22 +1,21 @@
-package world.build;
+package world.build.subbuilders.diode;
 
 import files_io.Input;
 import org.junit.Before;
 import org.junit.Test;
 import world.WireMapManager;
-import world.cells.Cell;
+import world.build.WorldDimensions;
 import world.neighbourhood.Moor;
-import world.other.CellConstants;
 import world.rules.WireRules;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static world.other.CellConstants.WIRE;
 
 public class DiodeBuilderTest {
-    private static final String path = "test/world/build/";
-    private static final Cell WIRE = CellConstants.WIRE;
+    private static final String path = "test/world/build/subbuilders/diode/";
 
     private WireMapManager wireMapManagerExpected;
 
@@ -43,8 +42,8 @@ public class DiodeBuilderTest {
             if (wireMapManagerExpected.getWireMap().containsKey(position))
                 counter.getAndIncrement();
         }));
-        assertEquals(counter.get(), 5);
-        assertEquals(wireMapManager.getWireMap().size(), 5);
+        assertEquals(5, counter.get());
+        assertEquals(5, wireMapManager.getWireMap().size());
     }
 
     @Test
@@ -64,8 +63,8 @@ public class DiodeBuilderTest {
             if (wireMapManagerExpected.getWireMap().containsKey(position))
                 counter.getAndIncrement();
         }));
-        assertEquals(counter.get(), 5);
-        assertEquals(wireMapManager.getWireMap().size(), 5);
+        assertEquals(5, counter.get());
+        assertEquals(5, wireMapManager.getWireMap().size());
     }
 
     @Test
@@ -85,8 +84,8 @@ public class DiodeBuilderTest {
             if (wireMapManagerExpected.getWireMap().containsKey(position))
                 counter.getAndIncrement();
         }));
-        assertEquals(counter.get(), 5);
-        assertEquals(wireMapManager.getWireMap().size(), 5);
+        assertEquals(5, counter.get());
+        assertEquals(5, wireMapManager.getWireMap().size());
     }
 
     @Test
@@ -106,7 +105,7 @@ public class DiodeBuilderTest {
             if (wireMapManagerExpected.getWireMap().containsKey(position))
                 counter.getAndIncrement();
         }));
-        assertEquals(counter.get(), 5);
-        assertEquals(wireMapManager.getWireMap().size(), 5);
+        assertEquals(5, counter.get());
+        assertEquals(5, wireMapManager.getWireMap().size());
     }
 }

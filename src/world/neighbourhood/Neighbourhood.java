@@ -7,7 +7,7 @@ import world.cells.Cell;
 import java.util.HashMap;
 
 public abstract class Neighbourhood {
-    WorldDimensions worldDimensions;
+    final WorldDimensions worldDimensions;
 
     public Neighbourhood(WorldDimensions worldDimensions) {
         this.worldDimensions = worldDimensions;

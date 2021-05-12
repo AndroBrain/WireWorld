@@ -1,6 +1,8 @@
 package world.build;
 
 import world.WireMapManager;
+import world.build.subbuilders.DiodeBuilder;
+import world.build.subbuilders.OrGateBuilder;
 import world.other.CellConstants;
 
 public class WireBuilder {
@@ -23,7 +25,11 @@ public class WireBuilder {
     }
 
     public void putDiode(int x, int y, char direction) {
-        DiodeBuilder.build(wireMapManager, x, y, direction);
+        DiodeBuilder.build(this, x, y, direction);
+    }
+
+    public void putOrGate(int x, int y, char direction) {
+        OrGateBuilder.build(this, x, y, direction);
     }
 
 }
