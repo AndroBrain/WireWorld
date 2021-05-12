@@ -44,6 +44,8 @@ public class Input {
                         case "ElectronGenerator":
                             wireBuilder.putElectronGenerator(x, y, wireData[3], Integer.parseInt(wireData[4]), Integer.parseInt(wireData[5]));
                             break;
+                        case "AndNotGate":
+                            wireBuilder.putAndNot(x, y);
                     }
                 }
                 return wireMapManager;

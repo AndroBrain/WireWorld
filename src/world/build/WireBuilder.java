@@ -1,6 +1,7 @@
 package world.build;
 
 import world.WireMapManager;
+import world.build.subbuilders.AndNotGateBuilder;
 import world.build.subbuilders.DiodeBuilder;
 import world.build.subbuilders.ElectronGeneratorBuilder;
 import world.build.subbuilders.OrGateBuilder;
@@ -35,6 +36,10 @@ public class WireBuilder {
 
     public void putElectronGenerator(int x, int y, String direction, int width, int height) {
         ElectronGeneratorBuilder.build(this, x, y, direction, width, height);
+    }
+
+    public void putAndNot(int x, int y) {
+        AndNotGateBuilder.build(this, x, y);
     }
 
 }
