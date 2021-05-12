@@ -116,7 +116,7 @@ public class Controller {
                 }
             drawWire(wireMapManager);
 
-            new Thread(() -> {
+            Thread solverThread = new Thread(() -> {
                 for (int i = 0; i < getIterationsInput(); i++) {
                     try {
                         Thread.sleep(getDelayInput());
@@ -126,7 +126,9 @@ public class Controller {
                     wireMapManager.iterate();
                     Platform.runLater(() -> drawWire(wireMapManager));
                 }
-            }).start();
+            });
+            solverThread.setDaemon(true);
+            solverThread.start();
         }
 
         startButtonPressed = 1;
