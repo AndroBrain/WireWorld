@@ -11,21 +11,11 @@ public class OrGateBuilder {
                 buildTop(wireBuilder, y, x - 2, true);
                 buildMiddle(wireBuilder, y, x - 1, true);
                 buildBottom(wireBuilder, y, x, true);
-
-//                for (int column = y - 2; column < y + 3; column += 2)
-//                    wireBuilder.putWire(x - 1, column);
-//                for (int column = y - 2; column < y + 3; column += 4)
-//                    wireBuilder.putWire(x, column);
                 break;
             case SOUTH:
                 buildTop(wireBuilder, y, x + 2, true);
-
                 buildMiddle(wireBuilder, y, x + 1, true);
                 buildBottom(wireBuilder, y, x, true);
-//                for (int column = y - 2; column < y + 3; column += 2)
-//                    wireBuilder.putWire(x + 1, column);
-//                for (int column = y - 2; column < y + 3; column += 4)
-//                    wireBuilder.putWire(x, column);
                 break;
             case WEST:
                 buildTop(wireBuilder, x, y + 2, false);
@@ -41,25 +31,23 @@ public class OrGateBuilder {
 
     private static void buildTop(WireBuilder wireBuilder, int lineOne, int lineTwo, boolean isVertical) {
         for (int line = lineOne - 1; line < lineOne + 2; line++)
-            if (isVertical)
-                wireBuilder.putWire(lineTwo, line);
-            else
-                wireBuilder.putWire(line, lineTwo);
+            buildWireVerticallyOrHorizontally(wireBuilder, line, lineTwo, isVertical);
     }
 
     private static void buildMiddle(WireBuilder wireBuilder, int lineOne, int lineTwo, boolean isVertical) {
         for (int line = lineOne - 2; line < lineOne + 3; line += 2)
-            if (isVertical)
-                wireBuilder.putWire(lineTwo, line);
-            else
-                wireBuilder.putWire(line, lineTwo);
+            buildWireVerticallyOrHorizontally(wireBuilder, line, lineTwo, isVertical);
     }
 
     private static void buildBottom(WireBuilder wireBuilder, int lineOne, int lineTwo, boolean isVertical) {
         for (int line = lineOne - 2; line < lineOne + 3; line += 4)
-            if (isVertical)
-                wireBuilder.putWire(lineTwo, line);
-            else
-                wireBuilder.putWire(line, lineTwo);
+            buildWireVerticallyOrHorizontally(wireBuilder, line, lineTwo, isVertical);
+    }
+
+    private static void buildWireVerticallyOrHorizontally(WireBuilder wireBuilder, int line, int lineTwo, boolean isVertical) {
+        if (isVertical)
+            wireBuilder.putWire(lineTwo, line);
+        else
+            wireBuilder.putWire(line, lineTwo);
     }
 }
