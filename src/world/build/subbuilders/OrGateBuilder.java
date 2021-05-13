@@ -17,12 +17,12 @@ public class OrGateBuilder {
                 buildMiddle(wireBuilder, y, x + 1, true);
                 buildBottom(wireBuilder, y, x, true);
                 break;
-            case WEST:
+            case EAST:
                 buildTop(wireBuilder, x, y + 2, false);
                 buildMiddle(wireBuilder, x, y + 1, false);
                 buildBottom(wireBuilder, x, y, false);
                 break;
-            case EAST:
+            case WEST:
                 buildTop(wireBuilder, x, y - 2, false);
                 buildMiddle(wireBuilder, x, y - 1, false);
                 buildBottom(wireBuilder, x, y, false);

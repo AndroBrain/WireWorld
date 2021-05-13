@@ -68,8 +68,8 @@ public class DiodeBuilderTest {
     }
 
     @Test
-    public void buildWest() {
-        WireMapManager wireMapManager = Input.load(path + "westDiodeTest.txt");
+    public void buildEast() {
+        WireMapManager wireMapManager = Input.load(path + "eastDiodeTest.txt");
 
         assertNotNull(wireMapManager);
 
@@ -89,8 +89,8 @@ public class DiodeBuilderTest {
     }
 
     @Test
-    public void buildEast() {
-        WireMapManager wireMapManager = Input.load(path + "eastDiodeTest.txt");
+    public void buildWest() {
+        WireMapManager wireMapManager = Input.load(path + "westDiodeTest.txt");
 
         assertNotNull(wireMapManager);
 

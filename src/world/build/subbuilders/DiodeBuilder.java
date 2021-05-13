@@ -19,11 +19,11 @@ public class DiodeBuilder {
                             if (row != x - 1)
                                 wireBuilder.putWire(row, column);
                             break;
-                        case WEST:
+                        case EAST:
                             if (column != y - 1)
                                 wireBuilder.putWire(row, column);
                             break;
-                        case EAST:
+                        case WEST:
                             if (column != y + 1)
                                 wireBuilder.putWire(row, column);
                             break;

@@ -73,8 +73,8 @@ public class OrGateBuilderTest {
     }
 
     @Test
-    public void buildWest() {
-        WireMapManager wireMapManager = Input.load(path + "westOrGateTest.txt");
+    public void buildEast() {
+        WireMapManager wireMapManager = Input.load(path + "eastOrGateTest.txt");
 
         assertNotNull(wireMapManager);
         wireMapManagerExpected.putEntry(1, 4, WIRE);
@@ -97,8 +97,8 @@ public class OrGateBuilderTest {
     }
 
     @Test
-    public void buildEast() {
-        WireMapManager wireMapManager = Input.load(path + "eastOrGateTest.txt");
+    public void buildWest() {
+        WireMapManager wireMapManager = Input.load(path + "westOrGateTest.txt");
 
         assertNotNull(wireMapManager);
         wireMapManagerExpected.putEntry(1, 0, WIRE);
