@@ -1,6 +1,7 @@
 package gui;
 
 import files_io.Input;
+import files_io.Output;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,6 +18,7 @@ import world.WireMapManager;
 import world.build.WorldDimensions;
 
 import java.io.File;
+import java.io.IOException;
 
 public class Controller {
 
@@ -125,6 +127,12 @@ public class Controller {
                     }
                     wireMapManager.iterate();
                     Platform.runLater(() -> drawWire(wireMapManager));
+                }
+                Output output = new Output(wireMapManager.getWireMap(), max, file.getAbsolutePath());
+                try {
+                    output.save();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             });
             solverThread.setDaemon(true);
