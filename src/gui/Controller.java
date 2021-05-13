@@ -50,12 +50,6 @@ public class Controller {
     private TextField plainGridHeight;
 
     @FXML
-    private TextField xSize;
-
-    @FXML
-    private TextField ySize;
-
-    @FXML
     private TextField iterationsTextField;
 
     @FXML
@@ -66,6 +60,11 @@ public class Controller {
 
     @FXML
     private AnchorPane rootPane;
+
+    public void initialize() {
+        iterationsTextField.textProperty().addListener(new MakeNumericListener(iterationsTextField));
+        delayTextField.textProperty().addListener(new MakeNumericListener(iterationsTextField));
+    }
 
     @FXML
     void openFile(ActionEvent event) {
@@ -92,8 +91,6 @@ public class Controller {
     @FXML
     void startWireworld(ActionEvent event) {
 
-        xInput = getInput(xSize.getText());
-        yInput = getInput(ySize.getText());
         iterationsInput = getInput(iterationsTextField.getText());
         delayInput = getInput(delayTextField.getText());
 
@@ -108,6 +105,7 @@ public class Controller {
 
             pixelWidth = gridPane.getWidth() / max;
             pixelHeight = gridPane.getHeight() / max;
+
 
             for (int x = 0; x < max; x++)
                 for (int y = 0; y < max; y++) {
@@ -170,7 +168,7 @@ public class Controller {
     }
 
     public int getDelayInput() {
-        return Math.max(delayInput, 10);
+        return Math.max(delayInput, 100);
     }
 
     public File getFile() {
