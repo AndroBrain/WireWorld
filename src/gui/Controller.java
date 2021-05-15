@@ -2,14 +2,16 @@ package gui;
 
 import files_io.Input;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.HPos;
+import javafx.geometry.VPos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -36,6 +38,8 @@ public class Controller {
     private Canvas canvas;
 
     private File file;
+
+    private WireMapManager wireMapManager;
 
     @FXML
     private Button startButton;
@@ -73,6 +77,8 @@ public class Controller {
         file = fileChooser.showOpenDialog(stage);
         if (file != null) {
             System.out.println("Path: " + file.getAbsolutePath());
+            wireMapManager = Input.load(file.getAbsolutePath());
+            drawGridPane();
         }
     }
 
@@ -80,40 +86,13 @@ public class Controller {
     void plainGridGenerate(ActionEvent event) {
         plainGridW = getInput(plainGridWidth.getText());
         plainGridH = getInput(plainGridHeight.getText());
-//        Matrix matrix = new Matrix(plainGridW, plainGridH);
-        //    pixelWidth = gridPane.getWidth() / matrix.getRows();
-        //   pixelHeight = gridPane.getHeight() / matrix.getColumns();
-        //      makeGridPane(matrix);
-//        startButton.setDisable(false);
-//        generateButtonPressed = 1;
     }
 
     @FXML
     void startWireworld(ActionEvent event) {
-
-        iterationsInput = getInput(iterationsTextField.getText());
-        delayInput = getInput(delayTextField.getText());
-
-        WireMapManager wireMapManager = Input.load(file.getAbsolutePath());
-
         if (wireMapManager != null) {
-            WorldDimensions worldDimensions = wireMapManager.getWorldDimensions();
-            int rows = worldDimensions.getRows();
-            int columns = worldDimensions.getColumns();
-
-            int max = Math.max(rows, columns);
-
-            pixelWidth = gridPane.getWidth() / max;
-            pixelHeight = gridPane.getHeight() / max;
-
-
-            for (int x = 0; x < max; x++)
-                for (int y = 0; y < max; y++) {
-                    addCanvasWithStroke(pixelWidth, pixelHeight, Color.BLACK, Color.RED);
-                    gridPane.add(canvas, y, x, 1, 1);
-                }
-            drawWire(wireMapManager);
-
+            iterationsInput = getInput(iterationsTextField.getText());
+            delayInput = getInput(delayTextField.getText());
             Thread solverThread = new Thread(() -> {
                 for (int i = 0; i < getIterationsInput(); i++) {
                     try {
@@ -127,9 +106,49 @@ public class Controller {
             });
             solverThread.setDaemon(true);
             solverThread.start();
-        }
 
-        startButtonPressed = 1;
+            startButtonPressed = 1;
+        }
+    }
+
+    public void drawGridPane() {
+//        Clear old gridpane
+        if (gridPane.getChildren().size() > 0)
+            gridPane.getChildren().retainAll(gridPane.getChildren().get(0));
+        if (wireMapManager != null) {
+            WorldDimensions worldDimensions = wireMapManager.getWorldDimensions();
+            int rows = worldDimensions.getRows();
+            int columns = worldDimensions.getColumns();
+
+            ObservableList<ColumnConstraints> colConstraints = gridPane.getColumnConstraints();
+            colConstraints.clear();
+            int max = Math.max(rows, columns);
+            for (int col = 0; col < max; col++) {
+                ColumnConstraints c = new ColumnConstraints();
+                c.setHalignment(HPos.CENTER);
+                c.setHgrow(Priority.ALWAYS);
+                colConstraints.add(c);
+            }
+
+            ObservableList<RowConstraints> rowConstraints = gridPane.getRowConstraints();
+            rowConstraints.clear();
+            for (int row = 0; row < max; row++) {
+                RowConstraints c = new RowConstraints();
+                c.setValignment(VPos.CENTER);
+                c.setVgrow(Priority.ALWAYS);
+                rowConstraints.add(c);
+            }
+
+            pixelWidth = gridPane.getWidth() / max;
+            pixelHeight = gridPane.getHeight() / max;
+
+            for (int x = 0; x < max; x++)
+                for (int y = 0; y < max; y++) {
+                    addCanvasWithStroke(pixelWidth, pixelHeight, Color.BLACK, Color.RED);
+                    gridPane.add(canvas, y, x, 1, 1);
+                }
+            drawWire(wireMapManager);
+        }
     }
 
     private void drawWire(WireMapManager wireMapManager) {
