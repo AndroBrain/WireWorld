@@ -15,6 +15,8 @@ public class Input {
             String line = br.readLine();
             if (line != null) {
                 String[] dimensions = line.split(" ");
+                if (dimensions.length < 2)
+                    return null;
                 WorldDimensions worldDimensions = new WorldDimensions(Integer.parseInt(dimensions[0]), Integer.parseInt(dimensions[1]));
 
                 WireMapManager wireMapManager = new WireMapManager(worldDimensions, new WireRules(), new Moor(worldDimensions));
@@ -53,7 +55,7 @@ public class Input {
                 return wireMapManager;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            return null;
         }
         return null;
     }

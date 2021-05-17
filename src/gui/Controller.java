@@ -10,6 +10,7 @@ import javafx.geometry.VPos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -48,6 +49,9 @@ public class Controller {
     private Button generateButton;
 
     @FXML
+    private Label loadFileLabel;
+
+    @FXML
     private TextField plainGridWidth;
 
     @FXML
@@ -75,10 +79,16 @@ public class Controller {
         final FileChooser fileChooser = new FileChooser();
         Stage stage = (Stage) rootPane.getScene().getWindow();
         file = fileChooser.showOpenDialog(stage);
+        loadFileLabel.setText("Loading WireWorld\n please wait");
         if (file != null) {
-            System.out.println("Path: " + file.getAbsolutePath());
             wireMapManager = Input.load(file.getAbsolutePath());
-            drawGridPane();
+            if (wireMapManager == null)
+                loadFileLabel.setText("ERROR\ncouldn't load file");
+            else
+                drawGridPane();
+
+        } else {
+            loadFileLabel.setText("ERROR\ncouldn't load file");
         }
     }
 
@@ -113,6 +123,7 @@ public class Controller {
 
     public void drawGridPane() {
 //        Clear old gridpane
+
         if (gridPane.getChildren().size() > 0)
             gridPane.getChildren().retainAll(gridPane.getChildren().get(0));
         if (wireMapManager != null) {
@@ -148,6 +159,7 @@ public class Controller {
                     gridPane.add(canvas, y, x, 1, 1);
                 }
             drawWire(wireMapManager);
+            loadFileLabel.setText("WireWorld file\nloaded successfully!");
         }
     }
 
