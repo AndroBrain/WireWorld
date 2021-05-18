@@ -128,9 +128,9 @@ public class Controller {
                     wireMapManager.iterate();
                     Platform.runLater(() -> drawWire(wireMapManager));
                 }
-                Output output = new Output(wireMapManager.getWireMap(), max, file.getAbsolutePath());
+                Output output = new Output(file, wireMapManager.getWireMap(), max);
                 try {
-                    output.save();
+                    output.save(file.getName());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

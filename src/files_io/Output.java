@@ -17,21 +17,22 @@ import static world.other.CellConstants.*;
 
 public class Output {
 
+    private File in;
     private final HashMap<Position, Cell> wireMap;
     private final int max;
-    private String fileAbsolutePath;
 
-    public Output(HashMap<Position, Cell> wireMap, int max, String fileAbsolutePath) {
+    public Output(File in, HashMap<Position, Cell> wireMap, int max) {
+        this.in = in;
         this.wireMap = wireMap;
         this.max = max;
-        this.fileAbsolutePath = fileAbsolutePath;
     }
 
     private static File lastIteration;
 
-    private static void createFile(){
+    private static void createFile(String path){
+
         try {
-            lastIteration = new File("lastIteration.txt");
+            lastIteration = new File(path + "lastIteration.txt");
             if (lastIteration.createNewFile()) {
                 System.out.println("File created: " + lastIteration.getName());
             } else {
@@ -42,9 +43,32 @@ public class Output {
             e.printStackTrace();
         }
     }
+    private static void copyFile(File input) throws IOException {
+        FileInputStream in = new FileInputStream(input.getPath());
+        FileOutputStream out = new FileOutputStream(input);
 
-    public void save() throws IOException {
-        createFile();
+        try {
+            int n;
+            while ((n = in.read()) != -1) {
+                out.write(n);
+            }
+        }
+        finally {
+            if (in != null) {
+                in.close();
+            }
+            if (out != null) {
+                out.close();
+            }
+        }
+        System.out.println("File Copied");
+    }
+
+    public void save(String path) throws IOException {
+        createFile(path);
+
+//        copyFile(in);
+
         Writer output = new BufferedWriter(new FileWriter(lastIteration, true));
 
         output.append(String.valueOf(max)).append(" ").append(String.valueOf(max)).append("\n");
@@ -62,7 +86,7 @@ public class Output {
                     e.printStackTrace();
                 }
             }
-            else if(cell == TAIL){
+            else if(cell == TAIL) {
                 int xi = position.getX();
                 int yi = position.getY();
                 String x = Integer.toString(xi);
@@ -74,32 +98,42 @@ public class Output {
                     e.printStackTrace();
                 }
             }
-            else if(cell == WIRE){
-                int xi = position.getX();
-                int yi = position.getY();
-                String x = Integer.toString(xi);
-                String y = Integer.toString(yi);
-
-                try {
-                    output.append("Wire ").append(x).append(" ").append(y).append("\n");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
         });
-        if(Input.helpForDiode != null)
+
+        if(Input.outForWire != null)
+            for(int h = 0; h < Input.a; h++) {
+//                if(!(Input.wireData[0].equals("ElectronHead") && Input.wireData[1].equals(Input.outForWire[h].substring(5,5)) && Input.wireData[2].equals(Input.outForWire[h].substring(7,7))) && !(Input.wireData[0].equals("ElectronTail") && Input.wireData[1].equals(Input.outForWire[h].substring(5,5)) && Input.wireData[2].equals(Input.outForWire[h].substring(7,7))))
+//                    System.out.println("sori ne ma");
+//                else
+                    output.append(Input.outForWire[h]).append("\n");
+            }
+        if(Input.outForWire1 != null)
+            for(int h = 0; h < Input.b; h++) {
+//                if (!(Input.wireData[0].equals("ElectronHead") && Input.wireData[1].equals(Input.outForWire1[h].substring(5, 5)) && Input.wireData[2].equals(Input.outForWire1[h].substring(7, 7))) && !(Input.wireData[0].equals("ElectronTail") && Input.wireData[1].equals(Input.outForWire1[h].substring(5, 5)) && Input.wireData[2].equals(Input.outForWire1[h].substring(7, 7))))
+//                    System.out.println("sori ne ma");
+//                else
+                    output.append(Input.outForWire1[h]).append("\n");
+            }
+        if(Input.outForWire2 != null) {
+            for (int h = 0; h < Input.c; h++)
+//                if (!(Input.wireData[0].equals("ElectronHead") && Input.wireData[1].equals(Input.outForWire2[h].substring(5, 5)) && Input.wireData[2].equals(Input.outForWire2[h].substring(7, 7))) && !(Input.wireData[0].equals("ElectronTail") && Input.wireData[1].equals(Input.outForWire2[h].substring(5, 5)) && Input.wireData[2].equals(Input.outForWire2[h].substring(7, 7))))
+//                    System.out.println("sori ne ma");
+//                else
+                    output.append(Input.outForWire2[h]).append("\n");
+        }
+        if(Input.outForDiode != null)
             for(int h = 0; h < Input.i; h++)
-                output.append(Input.helpForDiode[h]);
-        if(Input.helpForOr != null)
+                output.append(Input.outForDiode[h]);
+        if(Input.outForOr != null)
             for(int h = 0; h < Input.j; h++)
-                output.append(Input.helpForOr[h]);
-        if(Input.helpForElectronGenerator != null)
+                output.append(Input.outForOr[h]);
+        if(Input.outForElectronGenerator != null)
             for(int h = 0; h < Input.k; h++)
-                output.append(Input.helpForElectronGenerator[h]);
-        if(Input.helpForAndNot != null)
+                output.append(Input.outForElectronGenerator[h]);
+        if(Input.outForAndNot != null)
             for(int h = 0; h < Input.l; h++)
-                output.append(Input.helpForAndNot[h]);
+                output.append(Input.outForAndNot[h]);
+
 
 
         try {

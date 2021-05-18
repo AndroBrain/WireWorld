@@ -14,15 +14,23 @@ import java.util.HashMap;
 
 public class Input {
 
-    public static String[] helpForDiode = new String[100];
-    public static String[] helpForElectronGenerator = new String[100];
-    public static String[] helpForAndNot = new String[100];
-    public static String[] helpForOr = new String[100];
+    public static String[] outForDiode = new String[100];
+    public static String[] outForElectronGenerator = new String[100];
+    public static String[] outForAndNot = new String[100];
+    public static String[] outForOr = new String[100];
+    public static String[] outForWire = new String[100];
+    public static String[] outForWire1 = new String[100];
+    public static String[] outForWire2 = new String[100];
 
     public static int l = 0;
     public static int k = 0;
     public static int i = 0;
     public static int j = 0;
+    public static int a = 0;
+    public static int b = 0;
+    public static int c = 0;
+
+    public static String[] wireData;
 
     public static WireMapManager load(String filename) {
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
@@ -35,38 +43,44 @@ public class Input {
                 WireBuilder wireBuilder = new WireBuilder(wireMapManager);
 
                 while ((line = br.readLine()) != null && !line.isEmpty()) {
-                    String[] wireData = line.split(" ");
+                    wireData = line.split(" ");
                     String cellType = wireData[0];
                     int x = Integer.parseInt(wireData[1]);
                     int y = Integer.parseInt(wireData[2]);
                     switch (cellType) {
                         case "ElectronHead":
                             wireBuilder.putHead(x, y);
+                            outForWire2[c] = "Wire " + x + " " + y;
+                            c++;
                             break;
                         case "ElectronTail":
                             wireBuilder.putTail(x, y);
+                            outForWire1[b] = "Wire " + x + " " + y;
+                            b++;
                             break;
                         case "Wire":
                             wireBuilder.putWire(x, y);
+                            outForWire[a] = line;
+                            a++;
                             break;
                         case "Diode":
                             wireBuilder.putDiode(x, y, wireData[3].charAt(0));
-                            helpForDiode[i] = "Diode " + x + " " + y;
+                            outForDiode[i] = line;
                             i++;
                             break;
                         case "OrGate":
                             wireBuilder.putOrGate(x, y, wireData[3].charAt(0));
-                            helpForOr[j] = "Diode " + x + " " + y;
+                            outForOr[j] = line;
                             j++;
                             break;
                         case "ElectronGenerator":
                             wireBuilder.putElectronGenerator(x, y, wireData[3], Integer.parseInt(wireData[4]), Integer.parseInt(wireData[5]));
-                            helpForElectronGenerator[k] = "Diode " + x + " " + y;
+                            outForElectronGenerator[k] = line;
                             k++;
                             break;
                         case "AndNotGate":
                             wireBuilder.putAndNot(x, y);
-                            helpForAndNot[l] = "Diode " + x + " " + y;
+                            outForAndNot[l] = line;
                             l++;
                     }
                 }
