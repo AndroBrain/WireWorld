@@ -28,6 +28,10 @@ public class Controller {
 
     private WireMapManager wireMapManager;
     private Thread solverThread;
+
+    @FXML
+    private Button refreshButton;
+
     @FXML
     private Button startButton;
 
@@ -58,6 +62,8 @@ public class Controller {
     public void initialize() {
         iterationsTextField.textProperty().addListener(new NumericListener(iterationsTextField));
         delayTextField.textProperty().addListener(new NumericListener(iterationsTextField));
+        refreshButton.setText("Refresh\nCan only make bigger");
+        refreshButton.setOnAction((e) -> drawGridPane());
     }
 
     @FXML
@@ -74,8 +80,10 @@ public class Controller {
             wireMapManager = Input.load(file.getAbsolutePath());
             if (wireMapManager == null)
                 loadFileLabel.setText("ERROR\ncouldn't load file");
-            else
+            else {
+                loadFileLabel.setText("WireWorld file\nloaded successfully!");
                 drawGridPane();
+            }
 
         } else {
             loadFileLabel.setText("ERROR\ncouldn't load file");
@@ -106,6 +114,7 @@ public class Controller {
                         Platform.runLater(() -> drawWire(wireMapManager));
                     }
                     startButton.setDisable(false);
+                    break;
                 }
             });
             solverThread.setDaemon(true);
@@ -152,7 +161,6 @@ public class Controller {
                     gridPane.add(canvas, y, x, 1, 1);
                 }
             drawWire(wireMapManager);
-            loadFileLabel.setText("WireWorld file\nloaded successfully!");
         }
     }
 

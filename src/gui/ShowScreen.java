@@ -9,8 +9,6 @@ import javafx.stage.Stage;
 
 public class ShowScreen extends Application {
 
-//    int counter = 0;
-
     @Override
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("sample.fxml"));
@@ -18,22 +16,6 @@ public class ShowScreen extends Application {
         primaryStage.setTitle("Wireworld");
         primaryStage.setScene(new Scene(root));
         primaryStage.setFullScreen(true);
-//        primaryStage.widthProperty().addListener((observable, oldValue, newValue) -> {
-//                    counter++;
-//                    if (counter >= 60) {
-//                        ((Controller) loader.getController()).drawGridPane();
-//                        counter = 0;
-//                    }
-//                }
-//        );
-//        primaryStage.heightProperty().addListener((observable, oldValue, newValue) -> {
-//                    counter++;
-//                    if (counter >= 60) {
-//                        ((Controller) loader.getController()).drawGridPane();
-//                        counter = 0;
-//                    }
-//                }
-//        );
 
         primaryStage.show();
     }
