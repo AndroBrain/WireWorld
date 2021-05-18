@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 public class ShowScreen extends Application {
 
-    int counter = 0;
+//    int counter = 0;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -18,22 +18,22 @@ public class ShowScreen extends Application {
         primaryStage.setTitle("Wireworld");
         primaryStage.setScene(new Scene(root));
         primaryStage.setFullScreen(true);
-        primaryStage.widthProperty().addListener((observable, oldValue, newValue) -> {
-                    counter++;
-                    if (counter >= 60) {
-                        ((Controller) loader.getController()).drawGridPane();
-                        counter = 0;
-                    }
-                }
-        );
-        primaryStage.heightProperty().addListener((observable, oldValue, newValue) -> {
-                    counter++;
-                    if (counter >= 60) {
-                        ((Controller) loader.getController()).drawGridPane();
-                        counter = 0;
-                    }
-                }
-        );
+//        primaryStage.widthProperty().addListener((observable, oldValue, newValue) -> {
+//                    counter++;
+//                    if (counter >= 60) {
+//                        ((Controller) loader.getController()).drawGridPane();
+//                        counter = 0;
+//                    }
+//                }
+//        );
+//        primaryStage.heightProperty().addListener((observable, oldValue, newValue) -> {
+//                    counter++;
+//                    if (counter >= 60) {
+//                        ((Controller) loader.getController()).drawGridPane();
+//                        counter = 0;
+//                    }
+//                }
+//        );
 
         primaryStage.show();
     }
