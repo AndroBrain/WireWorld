@@ -2,10 +2,11 @@ package world.neighbourhood;
 
 import world.build.WorldDimensions;
 import world.cells.Cell;
-import world.cells.Head;
 import world.other.Position;
 
 import java.util.HashMap;
+
+import static world.other.CellConstants.HEAD;
 
 public class Moor extends Neighbourhood {
 
@@ -20,9 +21,8 @@ public class Moor extends Neighbourhood {
         int neighbours = 0;
         for (int i = x - 1; i < x + 2; i++)
             for (int j = y - 1; j < y + 2; j++)
-                if ((i != x || j != y) && i > -1 && j > -1 && i < worldDimensions.getRows() && j < worldDimensions.getColumns())
-                    if (map.get(new Position(i, j)) instanceof Head)
-                        neighbours++;
+                if (map.get(new Position(i, j)) == HEAD)
+                    neighbours++;
         return neighbours;
     }
 }

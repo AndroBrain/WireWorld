@@ -37,13 +37,17 @@ public class Input {
             String line = br.readLine();
             if (line != null) {
                 String[] dimensions = line.split(" ");
+                if (dimensions.length < 2)
+                    return null;
                 WorldDimensions worldDimensions = new WorldDimensions(Integer.parseInt(dimensions[0]), Integer.parseInt(dimensions[1]));
 
                 WireMapManager wireMapManager = new WireMapManager(worldDimensions, new WireRules(), new Moor(worldDimensions));
                 WireBuilder wireBuilder = new WireBuilder(wireMapManager);
 
-                while ((line = br.readLine()) != null && !line.isEmpty()) {
-                    wireData = line.split(" ");
+                while ((line = br.readLine()) != null) {
+                    if (line.isEmpty())
+                        continue;
+                    String[] wireData = line.split(" ");
                     String cellType = wireData[0];
                     int x = Integer.parseInt(wireData[1]);
                     int y = Integer.parseInt(wireData[2]);

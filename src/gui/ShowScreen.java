@@ -11,11 +11,13 @@ public class ShowScreen extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("sample.fxml"));
+        Parent root = loader.load();
         primaryStage.setTitle("Wireworld");
-        primaryStage.setScene(new Scene(root, 688, 424));
+        primaryStage.setScene(new Scene(root));
+        primaryStage.setFullScreen(true);
+
         primaryStage.show();
-        primaryStage.setResizable(false);
     }
 
 
