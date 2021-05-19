@@ -125,16 +125,19 @@ public class Output {
         }
         if(Input.outForDiode != null)
             for(int h = 0; h < Input.i; h++)
-                output.append(Input.outForDiode[h]);
+                output.append(Input.outForDiode[h]).append("\n");
         if(Input.outForOr != null)
             for(int h = 0; h < Input.j; h++)
-                output.append(Input.outForOr[h]);
+                output.append(Input.outForOr[h]).append("\n");
         if(Input.outForElectronGenerator != null)
             for(int h = 0; h < Input.k; h++)
-                output.append(Input.outForElectronGenerator[h]);
+                output.append(Input.outForElectronGenerator[h]).append("\n");
         if(Input.outForAndNot != null)
             for(int h = 0; h < Input.l; h++)
-                output.append(Input.outForAndNot[h]);
+                output.append(Input.outForAndNot[h]).append("\n");
+        if(Input.outForFuseForN5 != null)
+            for(int h = 0; h < Input.d; h++)
+                output.append(Input.outForFuseForN5[h]).append("\n");
 
 
 

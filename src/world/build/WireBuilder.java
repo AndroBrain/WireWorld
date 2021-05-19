@@ -1,10 +1,7 @@
 package world.build;
 
 import world.WireMapManager;
-import world.build.subbuilders.AndNotGateBuilder;
-import world.build.subbuilders.DiodeBuilder;
-import world.build.subbuilders.ElectronGeneratorBuilder;
-import world.build.subbuilders.OrGateBuilder;
+import world.build.subbuilders.*;
 import world.cells.Cell;
 import world.other.CellConstants;
 import world.other.Position;
@@ -49,6 +46,10 @@ public class WireBuilder {
 
     public void putAndNot(int x, int y) {
         AndNotGateBuilder.build(this, x, y);
+    }
+
+    public void putFuseForN5(int x, int y, char direction){
+        FuseForN5Builder.build(this, x, y, direction);
     }
 
     private void putEntry(int x, int y, Cell cell) {

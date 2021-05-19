@@ -14,13 +14,14 @@ import java.util.HashMap;
 
 public class Input {
 
-    public static String[] outForDiode = new String[100];
-    public static String[] outForElectronGenerator = new String[100];
-    public static String[] outForAndNot = new String[100];
-    public static String[] outForOr = new String[100];
-    public static String[] outForWire = new String[100];
-    public static String[] outForWire1 = new String[100];
-    public static String[] outForWire2 = new String[100];
+    public static String[] outForDiode = new String[100000];
+    public static String[] outForElectronGenerator = new String[100000];
+    public static String[] outForAndNot = new String[100000];
+    public static String[] outForOr = new String[100000];
+    public static String[] outForWire = new String[100000];
+    public static String[] outForWire1 = new String[100000];
+    public static String[] outForWire2 = new String[100000];
+    public static String[] outForFuseForN5 = new String[100000];
 
     public static int l = 0;
     public static int k = 0;
@@ -29,6 +30,8 @@ public class Input {
     public static int a = 0;
     public static int b = 0;
     public static int c = 0;
+    public static int d = 0;
+
 
     public static String[] wireData;
 
@@ -86,6 +89,12 @@ public class Input {
                             wireBuilder.putAndNot(x, y);
                             outForAndNot[l] = line;
                             l++;
+                            break;
+                        case "FuseForN5":
+                            wireBuilder.putFuseForN5(x, y, wireData[3].charAt(0));
+                            outForFuseForN5[d] = line;
+                            d++;
+
                     }
                 }
                 return wireMapManager;

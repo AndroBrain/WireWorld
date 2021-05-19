@@ -1,9 +1,80 @@
-10 10
-ElectronHead 1 3
-ElectronTail 0 3
-Wire 2 3
-Wire 3 3
-Wire 4 3
-Wire 5 3
-Wire 6 3
-Wire 7 3
+50 50
+
+ElectronGenerator 2 4 sw 2 4
+Wire 2 5
+Wire 2 6
+Wire 2 7
+Wire 2 8
+Wire 2 9
+Wire 2 10
+Diode 2 12 w
+Wire 2 13
+Wire 2 14
+Wire 7 5
+Wire 7 6
+Wire 7 7
+Wire 7 8
+Wire 7 9
+Wire 7 10
+Diode 7 11 e
+Wire 7 13
+Wire 7 14
+ElectronHead 4 1
+ElectronTail 5 1
+
+ElectronGenerator 10 4 sw 2 4
+Wire 10 5
+Wire 10 6
+Wire 10 7
+Wire 10 8
+Wire 10 9
+Wire 10 10
+AndNotGate 12 11
+Wire 15 5
+Wire 15 6
+Wire 15 7
+Wire 15 8
+Wire 15 9
+Wire 14 10
+Wire 14 12
+Wire 14 13
+ElectronHead 12 1
+ElectronTail 13 1
+
+Wire 2 18
+Wire 12 18
+Wire 3 17
+Wire 4 17
+Wire 5 17
+Wire 6 17
+Wire 7 17
+Wire 8 17 
+Wire 9 17
+Wire 10 17
+Wire 11 17
+Wire 3 19
+Wire 4 19
+Wire 5 19
+Wire 6 19
+Wire 8 19
+Wire 9 19
+Wire 10 19
+Wire 11 19
+Wire 7 20
+Wire 7 21
+Wire 7 22
+Wire 7 23
+Wire 7 24
+FuseForN5 7 25 s
+Wire 7 34
+Wire 7 35
+Wire 7 36
+Wire 8 37
+Wire 9 37
+Wire 10 37
+ElectronHead 3 17
+ElectronTail 4 17
+ElectronHead 8 17
+ElectronTail 9 17
+ElectronHead 6 19
+ElectronTail 5 19
