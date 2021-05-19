@@ -1,6 +1,7 @@
 package gui;
 
 import files_io.Input;
+import files_io.Output;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,6 +21,7 @@ import world.WireMapManager;
 import world.build.WorldDimensions;
 
 import java.io.File;
+import java.io.IOException;
 
 public class Controller {
 
@@ -28,6 +30,9 @@ public class Controller {
 
     private WireMapManager wireMapManager;
     private Thread solverThread;
+
+    private int max;
+    private File file;
 
     @FXML
     private Button refreshButton;
@@ -75,7 +80,7 @@ public class Controller {
                 solverThread.interrupt();
         final FileChooser fileChooser = new FileChooser();
         Stage stage = (Stage) rootPane.getScene().getWindow();
-        File file = fileChooser.showOpenDialog(stage);
+        file = fileChooser.showOpenDialog(stage);
         if (file != null) {
             wireMapManager = Input.load(file.getAbsolutePath());
             if (wireMapManager == null)
@@ -116,6 +121,12 @@ public class Controller {
                     startButton.setDisable(false);
                     break;
                 }
+                Output output = new Output(file, wireMapManager.getWireMap(), max);
+                try {
+                    output.save(file.getName());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             });
             solverThread.setDaemon(true);
             solverThread.start();
@@ -135,7 +146,7 @@ public class Controller {
 
             ObservableList<ColumnConstraints> colConstraints = gridPane.getColumnConstraints();
             colConstraints.clear();
-            int max = Math.max(rows, columns);
+            max = Math.max(rows, columns);
             for (int col = 0; col < max; col++) {
                 ColumnConstraints c = new ColumnConstraints();
                 c.setHalignment(HPos.CENTER);
@@ -179,7 +190,7 @@ public class Controller {
         gc.setFill(canvasColor);
         gc.fillRoundRect(0, 0, pW, pH, 0, 0); // w kolejności - odległość x od krawędzi canvasa ; y -- ; bok kwadratu ; -- ; zaokrąglenie ; -||-
         gc.setStroke(Color.RED);
-        gc.strokeRoundRect(0, 0, pW, pH, 0, 0);
+        gc.strokeRoundRect(0, 0, pW, pH, 1, 1);
         return canvas;
     }
 

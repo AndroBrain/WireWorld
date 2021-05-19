@@ -36,7 +36,9 @@ public class Output {
             if (lastIteration.createNewFile()) {
                 System.out.println("File created: " + lastIteration.getName());
             } else {
-                System.out.println("File already exists.");
+                lastIteration.delete();
+                lastIteration.createNewFile();
+                System.out.println("Old file deleted, new has been created: " + lastIteration.getName());
             }
         } catch (IOException e) {
             System.out.println("An error occurred.");
