@@ -48,7 +48,7 @@ public class WireBuilder {
         AndNotGateBuilder.build(this, x, y);
     }
 
-    public void putFuseForN5(int x, int y, char direction){
+    public void putFuseForN5(int x, int y, char direction) {
         FuseForN5Builder.build(this, x, y, direction);
     }
 

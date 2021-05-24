@@ -3,14 +3,11 @@ package files_io;
 import world.WireMapManager;
 import world.build.WireBuilder;
 import world.build.WorldDimensions;
-import world.cells.Cell;
 import world.neighbourhood.Moor;
-import world.other.Position;
 import world.rules.WireRules;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.HashMap;
 
 public class Input {
 

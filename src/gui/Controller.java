@@ -195,7 +195,7 @@ public class Controller {
     }
 
     public int getIterationsInput(String input) {
-        return getInput(input, 40);
+        return getInput(input, 1);
     }
 
     public int getDelayInput(String input) {
