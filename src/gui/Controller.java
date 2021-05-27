@@ -35,9 +35,6 @@ public class Controller {
     private File file;
 
     @FXML
-    private Button refreshButton;
-
-    @FXML
     private Button startButton;
 
     @FXML
@@ -67,8 +64,6 @@ public class Controller {
     public void initialize() {
         iterationsTextField.textProperty().addListener(new NumericListener(iterationsTextField));
         delayTextField.textProperty().addListener(new NumericListener(iterationsTextField));
-        refreshButton.setText("Refresh\nCan only make bigger");
-        refreshButton.setOnAction((e) -> drawGridPane());
     }
 
     @FXML
@@ -189,7 +184,7 @@ public class Controller {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.setFill(canvasColor);
         gc.fillRoundRect(0, 0, pW, pH, 0, 0); // w kolejności - odległość x od krawędzi canvasa ; y -- ; bok kwadratu ; -- ; zaokrąglenie ; -||-
-        gc.setStroke(Color.RED);
+        gc.setStroke(Color.color(0.5, 0.1, 0.3));
         gc.strokeRoundRect(0, 0, pW, pH, 1, 1);
         return canvas;
     }

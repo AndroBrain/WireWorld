@@ -43,6 +43,9 @@
                         <TextField fx:id="plainGridHeight" layoutX="46.0" layoutY="201.0" prefHeight="25.0"
                                    prefWidth="34.0" AnchorPane.leftAnchor="46.0"/>
                     </children>
+                    <BorderPane.margin>
+                        <Insets right="16.0"/>
+                    </BorderPane.margin>
                 </AnchorPane>
             </right>
             <center>
@@ -55,7 +58,7 @@
                         <RowConstraints vgrow="SOMETIMES"/>
                     </rowConstraints>
                     <BorderPane.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                        <Insets bottom="36.0" left="10.0" right="10.0" top="10.0"/>
                     </BorderPane.margin>
                 </GridPane>
             </center>
@@ -74,7 +77,6 @@
                                    prefHeight="25.0" prefWidth="124.0"/>
                         <Label fx:id="loadFileLabel" layoutX="13.0" layoutY="153.0" prefHeight="52.0"
                                prefWidth="124.0"/>
-                        <Button fx:id="refreshButton" layoutX="13.0" layoutY="261.0" mnemonicParsing="false"/>
                     </children>
                 </AnchorPane>
             </left>
