@@ -1,38 +1,25 @@
 package gui;
 
 import files_io.Input;
-import files_io.Output;
-import javafx.application.Platform;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.HPos;
-import javafx.geometry.VPos;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import world.WireMapManager;
-import world.build.WorldDimensions;
 
 import java.io.File;
-import java.io.IOException;
 
 public class Controller {
 
-    private double pixelWidth;
-    private double pixelHeight;
-
     private WireMapManager wireMapManager;
-    private Thread solverThread;
+    private SolverThread solverThread;
 
-    private int max;
-    private File file;
+    private GridDrawer gridDrawer;
 
     @FXML
     private Button startButton;
@@ -64,6 +51,7 @@ public class Controller {
     public void initialize() {
         iterationsTextField.textProperty().addListener(new NumericListener(iterationsTextField));
         delayTextField.textProperty().addListener(new NumericListener(iterationsTextField));
+        gridDrawer = new GridDrawer(gridPane);
     }
 
     @FXML
@@ -75,7 +63,7 @@ public class Controller {
                 solverThread.interrupt();
         final FileChooser fileChooser = new FileChooser();
         Stage stage = (Stage) rootPane.getScene().getWindow();
-        file = fileChooser.showOpenDialog(stage);
+        File file = fileChooser.showOpenDialog(stage);
         if (file != null) {
             wireMapManager = Input.load(file.getAbsolutePath());
             if (wireMapManager == null)
@@ -84,7 +72,6 @@ public class Controller {
                 loadFileLabel.setText("WireWorld file\nloaded successfully!");
                 drawGridPane();
             }
-
         } else {
             loadFileLabel.setText("ERROR\ncouldn't load file");
         }
@@ -102,28 +89,7 @@ public class Controller {
             int delay = getDelayInput(delayTextField.getText());
             int iterations = getIterationsInput(iterationsTextField.getText());
 
-            solverThread = new Thread(() -> {
-                running:
-                while (true) {
-                    for (int i = 0; i < iterations; i++) {
-                        try {
-                            Thread.sleep(delay);
-                        } catch (InterruptedException e) {
-                            break running;
-                        }
-                        wireMapManager.iterate();
-                        Platform.runLater(() -> drawWire(wireMapManager));
-                    }
-                    startButton.setDisable(false);
-                    break;
-                }
-                Output output = new Output(wireMapManager.getWireMap(), wireMapManager.getWorldDimensions());
-                try {
-                    output.save();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
+            solverThread = new SolverThread(startButton, iterations, delay, wireMapManager, gridDrawer);
             solverThread.setDaemon(true);
             solverThread.start();
         } else {
@@ -132,62 +98,7 @@ public class Controller {
     }
 
     public void drawGridPane() {
-//        Clear old gridpane
-        if (gridPane.getChildren().size() > 0)
-            gridPane.getChildren().retainAll(gridPane.getChildren().get(0));
-        if (wireMapManager != null) {
-            WorldDimensions worldDimensions = wireMapManager.getWorldDimensions();
-            int rows = worldDimensions.getRows();
-            int columns = worldDimensions.getColumns();
-
-            ObservableList<ColumnConstraints> colConstraints = gridPane.getColumnConstraints();
-            colConstraints.clear();
-            max = Math.max(rows, columns);
-            for (int col = 0; col < rows; col++) {
-                ColumnConstraints c = new ColumnConstraints();
-                c.setHalignment(HPos.CENTER);
-                c.setHgrow(Priority.ALWAYS);
-                colConstraints.add(c);
-            }
-
-            ObservableList<RowConstraints> rowConstraints = gridPane.getRowConstraints();
-            rowConstraints.clear();
-            for (int row = 0; row < columns; row++) {
-                RowConstraints c = new RowConstraints();
-                c.setValignment(VPos.CENTER);
-                c.setVgrow(Priority.ALWAYS);
-                rowConstraints.add(c);
-            }
-
-            pixelWidth = gridPane.getWidth() / columns;
-            pixelHeight = gridPane.getHeight() / rows;
-
-            for (int x = 0; x < rows; x++)
-                for (int y = 0; y < columns; y++) {
-                    Canvas canvas = createCanvasWithStroke(pixelWidth, pixelHeight, Color.BLACK);
-                    gridPane.add(canvas, y, x, 1, 1);
-                }
-            drawWire(wireMapManager);
-        }
-    }
-
-    private void drawWire(WireMapManager wireMapManager) {
-        wireMapManager.getWireMap().forEach((position, cell) -> {
-            int x = position.getX();
-            int y = position.getY();
-            Canvas canvas = createCanvasWithStroke(pixelWidth, pixelHeight, cell.getColor());
-            gridPane.add(canvas, y, x, 1, 1);
-        });
-    }
-
-    private Canvas createCanvasWithStroke(double pW, double pH, Color canvasColor) {
-        Canvas canvas = new Canvas(pixelWidth, pixelHeight);
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-        gc.setFill(canvasColor);
-        gc.fillRoundRect(0, 0, pW, pH, 0, 0); // w kolejności - odległość x od krawędzi canvasa ; y -- ; bok kwadratu ; -- ; zaokrąglenie ; -||-
-        gc.setStroke(Color.color(0.5, 0.1, 0.3));
-        gc.strokeRoundRect(0, 0, pW, pH, 1, 1);
-        return canvas;
+        gridDrawer.drawGridPane(wireMapManager);
     }
 
     public int getIterationsInput(String input) {
@@ -200,8 +111,10 @@ public class Controller {
 
     private int getInput(String input, int standard) {
         try {
-            return Math.max(Integer.parseInt(input), standard);
+            int intInput = Integer.parseInt(input);
+            return intInput > 0 ? intInput : standard;
         } catch (NumberFormatException e) {
+//            in case input is ""
             return standard;
         }
     }

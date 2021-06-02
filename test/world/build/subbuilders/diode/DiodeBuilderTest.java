@@ -22,7 +22,7 @@ public class DiodeBuilderTest {
     @Before
     public void before() {
         WorldDimensions worldDimensions = new WorldDimensions(3, 3);
-        wireMapManagerExpected = new WireMapManager(worldDimensions, new WireRules(), new Moor(worldDimensions));
+        wireMapManagerExpected = new WireMapManager(worldDimensions, new WireRules(), new Moor());
     }
 
     @Test

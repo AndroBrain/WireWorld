@@ -1,6 +1,5 @@
 package world.neighbourhood;
 
-import world.build.WorldDimensions;
 import world.cells.Cell;
 import world.other.Position;
 
@@ -8,12 +7,7 @@ import java.util.HashMap;
 
 import static world.other.CellConstants.HEAD;
 
-public class Moor extends Neighbourhood {
-
-    public Moor(WorldDimensions worldDimensions) {
-        super(worldDimensions);
-    }
-
+public class Moor implements Neighbourhood {
     @Override
     public int iterateNeighbourhood(HashMap<Position, Cell> map, Position position) {
         int x = position.getX();

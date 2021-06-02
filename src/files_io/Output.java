@@ -37,7 +37,7 @@ public class Output {
         }
     }
 
-    public void save() throws IOException {
+    synchronized public void save() {
         createFile();
 
         StringBuilder sb = new StringBuilder();
@@ -66,7 +66,7 @@ public class Output {
             sb.append(Input.wireCells.pop()).append('\n');
 
         try (Writer output = new BufferedWriter(new FileWriter(lastIteration, true))) {
-            output.append(sb.toString());
+            output.write(sb.toString());
         } catch (IOException e) {
             e.printStackTrace();
         }

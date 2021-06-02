@@ -11,7 +11,7 @@ import java.io.FileReader;
 import java.util.Stack;
 
 public class Input {
-    public static Stack<String> wireCells = new Stack<>();
+    public static final Stack<String> wireCells = new Stack<>();
 
     public static WireMapManager load(String filename) {
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
@@ -22,7 +22,7 @@ public class Input {
                     return null;
                 WorldDimensions worldDimensions = new WorldDimensions(Integer.parseInt(dimensions[0]), Integer.parseInt(dimensions[1]));
 
-                WireMapManager wireMapManager = new WireMapManager(worldDimensions, new WireRules(), new Moor(worldDimensions));
+                WireMapManager wireMapManager = new WireMapManager(worldDimensions, new WireRules(), new Moor());
                 WireBuilder wireBuilder = new WireBuilder(wireMapManager);
 
                 while ((line = br.readLine()) != null) {
