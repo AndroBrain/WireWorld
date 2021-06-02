@@ -8,29 +8,10 @@ import world.rules.WireRules;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.Stack;
 
 public class Input {
-
-    public static String[] outForDiode = new String[100000];
-    public static String[] outForElectronGenerator = new String[100000];
-    public static String[] outForAndNot = new String[100000];
-    public static String[] outForOr = new String[100000];
-    public static String[] outForWire = new String[100000];
-    public static String[] outForWire1 = new String[100000];
-    public static String[] outForWire2 = new String[100000];
-    public static String[] outForFuseForN5 = new String[100000];
-
-    public static int l = 0;
-    public static int k = 0;
-    public static int i = 0;
-    public static int j = 0;
-    public static int a = 0;
-    public static int b = 0;
-    public static int c = 0;
-    public static int d = 0;
-
-
-    public static String[] wireData;
+    public static Stack<String> wireCells = new Stack<>();
 
     public static WireMapManager load(String filename) {
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
@@ -54,44 +35,36 @@ public class Input {
                     switch (cellType) {
                         case "ElectronHead":
                             wireBuilder.putHead(x, y);
-                            outForWire2[c] = "Wire " + x + " " + y;
-                            c++;
+                            wireCells.add("Wire " + x + " " + y);
                             break;
                         case "ElectronTail":
                             wireBuilder.putTail(x, y);
-                            outForWire1[b] = "Wire " + x + " " + y;
-                            b++;
+                            wireCells.add("Wire " + x + " " + y);
                             break;
                         case "Wire":
                             wireBuilder.putWire(x, y);
-                            outForWire[a] = line;
-                            a++;
+                            wireCells.add(line);
                             break;
                         case "Diode":
                             wireBuilder.putDiode(x, y, wireData[3].charAt(0));
-                            outForDiode[i] = line;
-                            i++;
+                            wireCells.add(line);
                             break;
                         case "OrGate":
                             wireBuilder.putOrGate(x, y, wireData[3].charAt(0));
-                            outForOr[j] = line;
-                            j++;
+                            wireCells.add(line);
                             break;
                         case "ElectronGenerator":
                             wireBuilder.putElectronGenerator(x, y, wireData[3], Integer.parseInt(wireData[4]), Integer.parseInt(wireData[5]));
-                            outForElectronGenerator[k] = line;
-                            k++;
+                            wireCells.add(line);
                             break;
                         case "AndNotGate":
                             wireBuilder.putAndNot(x, y);
-                            outForAndNot[l] = line;
-                            l++;
+                            wireCells.add(line);
                             break;
                         case "FuseForN5":
                             wireBuilder.putFuseForN5(x, y, wireData[3].charAt(0));
-                            outForFuseForN5[d] = line;
-                            d++;
-
+                            wireCells.add(line);
+                            break;
                     }
                 }
                 return wireMapManager;

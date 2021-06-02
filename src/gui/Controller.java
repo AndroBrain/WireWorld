@@ -101,6 +101,7 @@ public class Controller {
             startButton.setDisable(true);
             int delay = getDelayInput(delayTextField.getText());
             int iterations = getIterationsInput(iterationsTextField.getText());
+
             solverThread = new Thread(() -> {
                 running:
                 while (true) {
@@ -116,9 +117,9 @@ public class Controller {
                     startButton.setDisable(false);
                     break;
                 }
-                Output output = new Output(file, wireMapManager.getWireMap(), max);
+                Output output = new Output(wireMapManager.getWireMap(), wireMapManager.getWorldDimensions());
                 try {
-                    output.save(file.getName());
+                    output.save();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -142,7 +143,7 @@ public class Controller {
             ObservableList<ColumnConstraints> colConstraints = gridPane.getColumnConstraints();
             colConstraints.clear();
             max = Math.max(rows, columns);
-            for (int col = 0; col < max; col++) {
+            for (int col = 0; col < rows; col++) {
                 ColumnConstraints c = new ColumnConstraints();
                 c.setHalignment(HPos.CENTER);
                 c.setHgrow(Priority.ALWAYS);
@@ -151,18 +152,18 @@ public class Controller {
 
             ObservableList<RowConstraints> rowConstraints = gridPane.getRowConstraints();
             rowConstraints.clear();
-            for (int row = 0; row < max; row++) {
+            for (int row = 0; row < columns; row++) {
                 RowConstraints c = new RowConstraints();
                 c.setValignment(VPos.CENTER);
                 c.setVgrow(Priority.ALWAYS);
                 rowConstraints.add(c);
             }
 
-            pixelWidth = gridPane.getWidth() / max;
-            pixelHeight = gridPane.getHeight() / max;
+            pixelWidth = gridPane.getWidth() / columns;
+            pixelHeight = gridPane.getHeight() / rows;
 
-            for (int x = 0; x < max; x++)
-                for (int y = 0; y < max; y++) {
+            for (int x = 0; x < rows; x++)
+                for (int y = 0; y < columns; y++) {
                     Canvas canvas = createCanvasWithStroke(pixelWidth, pixelHeight, Color.BLACK);
                     gridPane.add(canvas, y, x, 1, 1);
                 }
