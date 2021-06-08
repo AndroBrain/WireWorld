@@ -2,7 +2,7 @@ package world.build.subbuilders;
 
 import world.build.WireBuilder;
 
-import static world.other.OtherConstants.*;
+import static world.other.BuildConstants.*;
 
 public class ElectronGeneratorBuilder {
     public static void build(WireBuilder wireBuilder, int x, int y, String direction, int width, int height) {

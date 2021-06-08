@@ -6,7 +6,5 @@ import world.other.Position;
 import java.util.HashMap;
 
 public interface Neighbourhood {
-    default int iterateNeighbourhood(HashMap<Position, Cell> map, Position position) {
-        return 0;
-    }
+     int iterateNeighbourhood(HashMap<Position, Cell> map, Position position);
 }

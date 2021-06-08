@@ -52,6 +52,9 @@ public class Controller {
         iterationsTextField.textProperty().addListener(new NumericListener(iterationsTextField));
         delayTextField.textProperty().addListener(new NumericListener(iterationsTextField));
         gridDrawer = new GridDrawer(gridPane);
+
+        iterationsTextField.setText("10");
+        delayTextField.setText("100");
     }
 
     @FXML
@@ -106,7 +109,7 @@ public class Controller {
     }
 
     public int getDelayInput(String input) {
-        return getInput(input, 100);
+        return getInput(input, 1);
     }
 
     private int getInput(String input, int standard) {

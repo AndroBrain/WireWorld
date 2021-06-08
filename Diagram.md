@@ -10,6 +10,7 @@ WireMapManager ..> Neighbourhood
 WireMapManager ..> Rules
 WireMapManager ..> Position
 WireMapManager ..> WireBuilder
+Output ..> Input
 Output ..> WireMapManager
 Neighbourhood <|-- Moor
 Rules <|-- WireRules
@@ -17,6 +18,8 @@ WireBuilder ..> AndNotGateBuilder
 WireBuilder ..> DiodeBuilder
 WireBuilder ..> ElectronGeneratorBuilder
 WireBuilder ..> OrGateBuilder
+WireBuilder ..> FuseForN5Builder
+FuseForN5Builder ..> AndNotGateBuilder
 Input ..> WireBuilder
 ```
 
